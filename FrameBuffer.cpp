@@ -450,6 +450,46 @@ public:
 			}
 		}
 	}
+	
+	void renderView(Window w, View v) {
+		float dx = (float) (v.P2.x - v.P1.x)/(w.getBottomRight().x - w.getTopLeft().x);
+		float dy = (float) (v.P2.y - v.P1.y)/(w.getBottomRight().y - w.getTopLeft().y);
+
+		if(!v.lines.empty()) {
+			for(int i=0; i<v.lines.size(); i++) {
+				drawLine(v.lines[i].src, v.lines[i].dest, 0, 100, 0, 0);
+			}	
+		}
+
+		for (int y=w.square.getMinY()+1; y<w.square.getMaxY(); y++) {
+			for (int x=w.square.getMinX()+1; x<w.square.getMaxX(); x++) {
+				int tempX = dx * (x - w.getTopLeft().x) + v.P1.x;
+				int tempY = dy * (y - w.getTopLeft().y) + v.P1.y;
+
+				int r = getR(x, y);
+				int g = getG(x, y);
+				int b = getB(x, y);
+				int a = getA(x, y);
+
+				//putPixel(Point(tempX, tempY), r,g,b,a);
+				//for (int i=1; i<=2) {
+
+				//}
+				//if (getR(x,y)!=135 && getG(x,y)!=206 && getB(x,y)!=235 && getA(x,y)!=0) {
+					for (int i=1; i<=2; i++) {
+						putPixel(Point(tempX+i, tempY), r,g,b,a);
+						putPixel(Point(tempX-i, tempY), r,g,b,a);
+						putPixel(Point(tempX, tempY+i), r,g,b,a);
+						putPixel(Point(tempX, tempY-i), r,g,b,a);
+						putPixel(Point(tempX+i, tempY+i), r,g,b,a);
+						putPixel(Point(tempX-i, tempY+i), r,g,b,a);
+						putPixel(Point(tempX-i, tempY+i), r,g,b,a);
+						putPixel(Point(tempX+i, tempY-i), r,g,b,a);
+					}
+				//}
+			}		
+		}
+	}
 
 	void scanLine3D(vector< vector<Point> > polygon, vector< vector <int> > color){
 		// initialize bucket
