@@ -160,3 +160,7 @@ void Window::moveRight(float k) {
 	square.e[2] = Point(square.e[2].x+=k,square.e[2].y);
 	square.e[3] = Point(square.e[3].x+=k,square.e[3].y);
 }
+
+void Window::rotateCW(float k) {
+	square.rotate(k);
+}

@@ -197,13 +197,21 @@ void move(int key) {
 		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
 			window.zoomIn(1.01);
 	}
+	else if(key=='l') {
+		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+			window.rotateCW(5.0);
+	}
+	else if(key=='j') {
+		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+			window.rotateCW(-5.0);
+	}
 	else if(key=='q') {
 		// OTHER KEYS
 		quit=true;
 		system("clear");
 	}
 
-	if (key=='a' || key=='s' || key=='d' || key=='w' || key=='k' || key=='m'){
+	if (key=='a' || key=='s' || key=='d' || key=='w' || key=='k' || key=='m' || key=='l' || key=='j'){
 		//menggambar ulang peta
 		drawMap();
 
