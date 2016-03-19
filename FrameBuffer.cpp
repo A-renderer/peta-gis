@@ -498,7 +498,7 @@ public:
 		for (int i=0; i<=512; i++){
 			vector<int> bucket;
 			bucket.push_back(0);
-			bucket.push_back(1336);
+			bucket.push_back(1366);
 			buckets[i] = bucket;
 		}
 
@@ -549,13 +549,9 @@ public:
 				for (int i=0; i<n; i++) {
 					int next = i+1;
 					if(next == n) next = 0;
-					int prev = i-1;
-					if(prev == -1) prev = n-1;
 					if (polygon.at(idx).at(i).y <= y && polygon.at(idx).at(next).y > y || polygon.at(idx).at(next).y <= y && polygon.at(idx).at(i).y > y) {
-						if (!(polygon.at(idx).at(prev).y < polygon.at(idx).at(i).y && polygon.at(idx).at(next).y < polygon.at(idx).at(i).y) || !(polygon.at(idx).at(i-1).y > polygon.at(idx).at(i).y && polygon.at(idx).at(next).y > polygon.at(idx).at(i).y)){
-							line[k] = (int) (polygon.at(idx).at(i).x + slope[i] * (y - polygon.at(idx).at(i).y));
-							k++;
-						}
+						line[k] = (int) (polygon.at(idx).at(i).x + slope[i] * (y - polygon.at(idx).at(i).y));
+						k++;
 					}
 				}
 
