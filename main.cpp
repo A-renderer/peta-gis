@@ -152,7 +152,7 @@ void redraw() { //untuk redraw view
 		window.clipAllPolygon(temp);
 		if(!window.lines.empty()) {
 			view.setViewLines(window);
-			FB.drawView(view,0,100,0,0);
+			FB.renderView(window,view);
 			//FB.rasterView(view,0,100,0,0,1,401);	
 			view.lines.clear();
 			window.lines.clear();
