@@ -3,18 +3,20 @@
 #include <termios.h>
 #include <fstream>
 #include "assets.h"
+#include "ThreeDimension.h"
 
 using namespace std;
 
 FrameBuffer FB;
 bool quit = false;
-vector<Polygon> peta;
+vector<ThreeDimension> peta;
 vector<Curve> kontur;
 Window window;
 int key;
 
 int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
+vector<Point> matrixToVectorOfPoints(int object[][2], int col);
 Curve matrixToCurve(int object[][2], int col);
 void drawMap();
 void redraw();
@@ -27,11 +29,11 @@ vector < vector <int> > colors;
 
 View view;
 Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
-Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
-Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
-Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
-Polygon p_papua = matrixToPolygon(papua,sizeof(papua)/sizeof(*papua));
-Polygon p_jawa = matrixToPolygon(jawa,sizeof(jawa)/sizeof(*jawa));
+ThreeDimension p_sumatra(matrixToVectorOfPoints(sumatra,sizeof(sumatra)/sizeof(*sumatra)));
+ThreeDimension p_kalimantan(matrixToVectorOfPoints(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan)));
+ThreeDimension p_sulawesi(matrixToVectorOfPoints(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi)));
+ThreeDimension p_papua(matrixToVectorOfPoints(papua,sizeof(papua)/sizeof(*papua)));
+ThreeDimension p_jawa(matrixToVectorOfPoints(jawa,sizeof(jawa)/sizeof(*jawa)));
 Curve c_papua_1_1 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_3 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
@@ -243,6 +245,15 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+vector<Point> matrixToVectorOfPoints(int object[][2], int col) {
+	vector<Point> points;
+	points.clear();
+	for(int i=0;i<col;i++) {
+		points.push_back(Point(object[i][0],object[i][1]));
+	}
+	return points;
+}
+
 Curve matrixToCurve(int object[][2], int col) {
 	vector<Point> p;
 	p.clear();
@@ -291,11 +302,11 @@ void redraw() { //untuk redraw view
 	for(int i=0;i<peta.size();i++) {
 		int j=0;
 		bool found = false;
-		while(j<peta[i].e.size() && !found) {
-			if(not(peta[i].e[j].x<window.getTopLeft().x || peta[i].e[j].y<window.getTopLeft().y 
-				|| peta[i].e[j].y>window.getBottomRight().y || peta[i].e[j].x>window.getBottomRight().x)) {
+		while(j<peta[i].frontside.e.size() && !found) {
+			if(not(peta[i].frontside.e[j].x<window.getTopLeft().x || peta[i].frontside.e[j].y<window.getTopLeft().y 
+				|| peta[i].frontside.e[j].y>window.getBottomRight().y || peta[i].frontside.e[j].x>window.getBottomRight().x)) {
 				found = true;
-				temp.push_back(peta[i]);
+				temp.push_back(peta[i].frontside);
 			}
 			j++;
 		}
@@ -322,25 +333,25 @@ void move(int key) {
 	//system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
 	int i = 0;
-	if(key=='w'){
+	if(key==65){
 		while(i < 10 && window.square.getMinY() > 0) {
 			window.moveUp(1);
 			i++;
 		}
 	}
-	else if(key=='a'){
+	else if(key==68){
 		while(i < 10 && window.square.getMinX() > 0) {
 			window.moveLeft(1);
 			i++;
 		}
 	}
-	else if(key=='d'){
+	else if(key==67){
 		while(i < 10 && window.square.getMaxX() < 599) {
 			window.moveRight(1);
 			i++;
 		}
 	}
-	else if(key=='s'){
+	else if(key==66){
 		while(i < 10 && window.square.getMaxY() < 400) {
 			window.moveDown(1);
 			i++;
@@ -368,7 +379,7 @@ void move(int key) {
 		system("clear");
 	}
 
-	if (key=='a' || key=='s' || key=='d' || key=='w' || key=='k' || key=='m' || key=='l' || key=='j'){
+	if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
 		//menggambar ulang peta
 		drawMap();
 
@@ -423,18 +434,18 @@ void initDraw() {
 	//polygons.push_back(c_papua_1_1.finals);
 	//colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 	
-	polygons.push_back(p_papua.e);
+	polygons.push_back(p_papua.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_jawa.e);
+	polygons.push_back(p_jawa.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_kalimantan.e);
+	polygons.push_back(p_kalimantan.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_sulawesi.e);
+	polygons.push_back(p_sulawesi.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_sumatra.e);
+	polygons.push_back(p_sumatra.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 }

@@ -1,5 +1,5 @@
 all:
-	g++ -o main FrameBuffer.cpp Point.cpp Line.cpp Polygon.cpp Window.cpp View.cpp Curve.cpp main.cpp
+	g++ -o main FrameBuffer.cpp Point.cpp Line.cpp Polygon.cpp Window.cpp ThreeDimension.cpp View.cpp Curve.cpp main.cpp
 
 run:
 	./main
