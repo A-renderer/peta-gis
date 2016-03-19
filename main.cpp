@@ -52,6 +52,11 @@ Curve c_sumatra_2_3 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_
 Curve c_sumatra_3_1 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
 Curve c_sumatra_3_2 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
 Curve c_sumatra_3_3 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_4_1 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_4_2 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_4_3 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_5_1 = matrixToCurve(sumatra_5,sizeof(sumatra_5)/sizeof(*sumatra_5));
+Curve c_sumatra_5_2 = matrixToCurve(sumatra_5,sizeof(sumatra_5)/sizeof(*sumatra_5));
 Curve c_jawa_1_1 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 Curve c_jawa_1_2 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 Curve c_jawa_1_3 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
@@ -69,7 +74,7 @@ int main() {
 	p_jawa.moveDown(265);
 	p_jawa.moveRight(170);
 	p_kalimantan.scale(1.55);
-	p_kalimantan.moveRight(150);
+	p_kalimantan.moveRight(155);
 	p_kalimantan.moveDown(50);
 	p_sulawesi.scale(1.25);
 	p_sulawesi.moveRight(320);
@@ -149,42 +154,60 @@ int main() {
 
 	c_sumatra_1_1.rotate(20);
 	c_sumatra_1_1.scale(0.6);
-	c_sumatra_1_1.moveRight(14);
+	c_sumatra_1_1.moveRight(19);
 	c_sumatra_1_1.moveDown(57);
 	c_sumatra_1_2.rotate(20);
 	c_sumatra_1_2.scale(0.5);
-	c_sumatra_1_2.moveRight(18);
+	c_sumatra_1_2.moveRight(23);
 	c_sumatra_1_2.moveDown(64);
 	c_sumatra_1_3.rotate(20);
 	c_sumatra_1_3.scale(0.3);
-	c_sumatra_1_3.moveRight(24);
+	c_sumatra_1_3.moveRight(29);
 	c_sumatra_1_3.moveDown(77);
 
 	c_sumatra_2_1.rotate(-117);
 	c_sumatra_2_1.scale(0.8);
-	c_sumatra_2_1.moveRight(95);
+	c_sumatra_2_1.moveRight(100);
 	c_sumatra_2_1.moveDown(118);
 	c_sumatra_2_2.rotate(-117);
 	c_sumatra_2_2.scale(0.7);
-	c_sumatra_2_2.moveRight(92);
+	c_sumatra_2_2.moveRight(97);
 	c_sumatra_2_2.moveDown(123);
 	c_sumatra_2_3.rotate(-117);
 	c_sumatra_2_3.scale(0.4);
-	c_sumatra_2_3.moveRight(87);
+	c_sumatra_2_3.moveRight(92);
 	c_sumatra_2_3.moveDown(149);
 
 	c_sumatra_3_1.rotate(5);
 	c_sumatra_3_1.scale(0.55);
-	c_sumatra_3_1.moveRight(87);
+	c_sumatra_3_1.moveRight(92);
 	c_sumatra_3_1.moveDown(195);
 	c_sumatra_3_2.rotate(5);
 	c_sumatra_3_2.scale(0.45);
-	c_sumatra_3_2.moveRight(90);
+	c_sumatra_3_2.moveRight(95);
 	c_sumatra_3_2.moveDown(198);
 	c_sumatra_3_3.rotate(5);
 	c_sumatra_3_3.scale(0.25);
-	c_sumatra_3_3.moveRight(94);
+	c_sumatra_3_3.moveRight(99);
 	c_sumatra_3_3.moveDown(203);
+
+	c_sumatra_4_1.rotate(2);
+	c_sumatra_4_1.scale(0.5);
+	c_sumatra_4_1.moveRight(88);
+	c_sumatra_4_1.moveDown(198);
+	c_sumatra_4_2.rotate(2);
+	c_sumatra_4_2.scale(0.3);
+	c_sumatra_4_2.moveRight(105);
+	c_sumatra_4_2.moveDown(225);
+	c_sumatra_4_3.rotate(2);
+	c_sumatra_4_3.scale(0.23);
+	c_sumatra_4_3.moveRight(112);
+	c_sumatra_4_3.moveDown(232);
+
+	c_sumatra_5_1.rotate(88);
+	c_sumatra_5_1.scale(1.5);
+	c_sumatra_5_1.moveRight(116);
+	c_sumatra_5_1.moveDown(190);
 
 	//p_sumatra_1_1.rotate(20);
 	//p_sumatra_1_1.scale(0.6);
@@ -453,6 +476,14 @@ void initDraw() {
 	polygons.push_back(c_sumatra_3_2.finals);
 	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	polygons.push_back(c_sumatra_3_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_4_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_4_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_4_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_5_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
 	//polygons.push_back(c_papua_1_2.finals);
