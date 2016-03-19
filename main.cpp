@@ -41,7 +41,8 @@ Curve c_papua_3_1 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_2 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
-
+Curve c_sulawesi_1_1 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
+Curve c_sulawesi_1_2 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
 
 int main() {
 	// Adjust positions of the islands
@@ -102,6 +103,14 @@ int main() {
 	c_papua_4_1.moveRight(491);
 	c_papua_4_1.moveDown(216);
 
+	c_sulawesi_1_1.scale(1.1);
+	c_sulawesi_1_1.moveRight(336);
+	c_sulawesi_1_1.moveDown(152);
+
+	c_sulawesi_1_2.scale(0.8);
+	c_sulawesi_1_2.moveRight(340);
+	c_sulawesi_1_2.moveDown(154);
+
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
 	kontur.push_back(c_papua_1_3);
@@ -120,6 +129,7 @@ int main() {
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
+
 	redraw();
 
 	while(!quit){
@@ -185,7 +195,7 @@ void drawMap() {
 	int r4 = 255, g4 = 165, b4 = 0; // warna kontur 3
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
-/*
+
 	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
 	FB.rasterScan(p_jawa, r1, g1, b1, 0, p_jawa.getMinY(), p_jawa.getMaxY());
 	FB.rasterScan(p_kalimantan, r1, g1, b1, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
@@ -203,8 +213,10 @@ void drawMap() {
 	FB.rasterScan(c_papua_3_2, r3, g3, b3,0, c_papua_3_2.getMinY(), c_papua_3_2.getMaxY());
 	FB.rasterScan(c_papua_3_3, r4, g4, b4,0, c_papua_3_3.getMinY(), c_papua_3_3.getMaxY());
 	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
-*/
+
 	FB.scanLine3D(polygons,colors);
+	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
+	FB.rasterScan(c_sulawesi_1_2,r3,g3,b3,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
 }
 
 void redraw() { //untuk redraw view
