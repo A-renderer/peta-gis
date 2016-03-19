@@ -43,7 +43,9 @@ Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
 Curve c_sumatra_1_1 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
-
+Curve c_jawa_1_1 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
+Curve c_jawa_1_2 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
+Curve c_jawa_1_3 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 
 int main() {
 	// Adjust positions of the islands
@@ -68,6 +70,19 @@ int main() {
 	peta.push_back(p_papua);
 
 	//Adjust positions of the contour
+	c_jawa_1_1.rotate(195);
+	c_jawa_1_1.scale(0.9);
+	c_jawa_1_1.moveRight(340);
+	c_jawa_1_1.moveDown(240);
+	c_jawa_1_2.rotate(193);
+	c_jawa_1_2.scale(0.6);
+	c_jawa_1_2.moveRight(330);
+	c_jawa_1_2.moveDown(270);
+	c_jawa_1_3.rotate(192);
+	c_jawa_1_3.scale(0.3);
+	c_jawa_1_3.moveRight(322);
+	c_jawa_1_3.moveDown(301);
+
 	c_papua_1_1.rotate(20);
 	c_papua_1_1.scale(0.6);
 	c_papua_1_1.moveRight(520);
@@ -122,6 +137,7 @@ int main() {
 	kontur.push_back(c_papua_3_2);
 	kontur.push_back(c_papua_3_3);
 	kontur.push_back(c_papua_4_1);
+	kontur.push_back(c_jawa_1_1);
 
 	system("clear");
 
@@ -216,8 +232,10 @@ void drawMap() {
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
-
 	FB.drawPolygon(p_sumatra_1_1,0,0,0,0);
+	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
+	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
+	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
 }
 
 void redraw() { //untuk redraw view
