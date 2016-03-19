@@ -44,6 +44,12 @@ Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
 Curve c_sumatra_1_1 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 Curve c_sumatra_1_2 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 Curve c_sumatra_1_3 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
+Curve c_sumatra_2_1 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_2_2 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_2_3 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_3_1 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_3_2 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_3_3 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
 Curve c_jawa_1_1 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 Curve c_jawa_1_2 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 Curve c_jawa_1_3 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
@@ -134,6 +140,32 @@ int main() {
 	c_sumatra_1_3.scale(0.3);
 	c_sumatra_1_3.moveRight(24);
 	c_sumatra_1_3.moveDown(77);
+
+	c_sumatra_2_1.rotate(-117);
+	c_sumatra_2_1.scale(0.8);
+	c_sumatra_2_1.moveRight(95);
+	c_sumatra_2_1.moveDown(118);
+	c_sumatra_2_2.rotate(-117);
+	c_sumatra_2_2.scale(0.7);
+	c_sumatra_2_2.moveRight(92);
+	c_sumatra_2_2.moveDown(123);
+	c_sumatra_2_3.rotate(-117);
+	c_sumatra_2_3.scale(0.4);
+	c_sumatra_2_3.moveRight(87);
+	c_sumatra_2_3.moveDown(149);
+
+	c_sumatra_3_1.rotate(5);
+	c_sumatra_3_1.scale(0.55);
+	c_sumatra_3_1.moveRight(87);
+	c_sumatra_3_1.moveDown(195);
+	c_sumatra_3_2.rotate(5);
+	c_sumatra_3_2.scale(0.45);
+	c_sumatra_3_2.moveRight(90);
+	c_sumatra_3_2.moveDown(198);
+	c_sumatra_3_3.rotate(5);
+	c_sumatra_3_3.scale(0.25);
+	c_sumatra_3_3.moveRight(94);
+	c_sumatra_3_3.moveDown(203);
 
 	//p_sumatra_1_1.rotate(20);
 	//p_sumatra_1_1.scale(0.6);
@@ -372,6 +404,18 @@ void initDraw() {
 	polygons.push_back(c_sumatra_1_2.finals);
 	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	polygons.push_back(c_sumatra_1_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_2_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_2_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_2_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_3_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_3_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_3_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
 	//polygons.push_back(c_papua_1_2.finals);
