@@ -4,6 +4,7 @@
 #include "View.h"
 #include "Curve.h"
 
+
 class FrameBuffer {
 public:
 
@@ -378,6 +379,122 @@ public:
 			for (int i = 1; i < c.points.size(); i++){
 				drawLine(temp, c.points.at(i), r, g, b, a);
 				temp = c.points.at(i);
+			}
+		}
+	}
+
+	void scanLine3D(vector< vector<Point> > polygon, vector<int[4]> color){
+		// initialize bucket
+		map<int, vector<int> > buckets;
+
+		for (int i=TOP; i<=BOTTOM; i++){
+			vector<int> bucket;
+			bucket.push_back(LEFT);
+			bucket.push_back(RIGHT);
+			buckets[i] = bucket;
+		}
+
+
+		// WARNAIN DARI DEPAN KE BELAKANG
+		int idx = 0;
+
+		while(idx < polygon.size()) {
+			int r = color.at(idx)[0];
+			int g = color.at(idx)[1];
+			int b = color.at(idx)[2];
+			int a = color.at(idx)[3];
+			int n = polygon.at(idx).size();
+
+			float slope[n];
+			int* line;
+			int x,y;
+			for (int i=0; i<n; i++) {
+				int dx = polygon.at(idx).at(i+1).x - polygon.at(idx).at(i).x;
+				int dy = polygon.at(idx).at(i+1).y - polygon.at(idx).at(i).y;
+
+				if (dy == 0) {
+					slope[i] = 1;
+				}
+				if (dx == 0) {
+					slope[i] = 0;
+				}
+				if (dx != 0 && dy != 0) {
+					slope[i] = (float) dx/dy;
+				}
+			}
+
+
+			for (int y=0; y<512; y++) {
+				// Cari titik perpotongan dan urutkan
+				int k=0;
+				int line[n];
+				for (int i=0; i<n; i++) {
+					if (polygon.at(idx).at(i).y <= y && polygon.at(idx).at(i+1).y > y || polygon.at(idx).at(i+1).y <= y && polygon.at(idx).at(i).y > y) {
+						if (!(polygon.at(idx).at(i-1).y < polygon.at(idx).at(i).y && polygon.at(idx).at(i+1).y < polygon.at(idx).at(i).y) || !(polygon.at(idx).at(i-1).y > polygon.at(idx).at(i).y && polygon.at(idx).at(i+1).y > polygon.at(idx).at(i).y)){
+							line[k] = (int) (polygon.at(idx).at(i).x + slope[i] * (y - polygon.at(idx).at(i).y));
+							k++;
+						}
+					}
+				}
+
+				// Sorting the lines
+				for (int j=0; j<k-1; j++) {
+					for (int i=0; i<k-1; i++) {
+						if (line[i] > line[i+1]) {
+							int temp = line[i];
+							line[i] = line[i+1];
+							line[i+1] = temp;
+						}
+					}
+				}
+
+
+				for (int i=0; i<k; i+=2) {
+					if(buckets.at(y).empty()) break;
+					
+					for(int j=0;j<buckets.at(y).size();j+=2) {
+						int p = buckets.at(y).at(j);
+						int q = buckets.at(y).at(j+1);
+
+						if(line[i] < p) {
+							if(line[i+1] < p) {
+								// do nothing karena yang mau di gambar ada di sebelah kiri bucket
+								// urutan : line[i]	line[i+1]	p 	q
+							}
+							else if(line[i+1] < q) {
+								
+								drawLine(Point(p, y), Point(line[i+1], y), r, g, b, a);
+								// urutan : line[i]	p 	line[i+1] 	q
+								buckets.at(y).at(j) = line[i+1];
+							}
+							else {
+								drawLine(Point(p, y), Point(q, y), r, g, b, a);
+								// urutan : line[i] p 	q 	line[i+1]
+								buckets.at(y).erase(buckets.at(y).begin()+j); buckets.at(y).erase(buckets.at(y).begin()+j+1);
+								j-=2; // ini bisa ga ya?
+							}
+						}
+						else { // line[i] >= q
+							if(line[i] > q) {
+								// do nothing karena yang mau di gambar ada di sebelah kanan bucket
+								// urutan : p 	q 	line[i]	line[i+1]
+							}
+							else if(line[i+1] < q) {
+								drawLine(Point(line[i], y), Point(line[i+1], y), r, g, b, a);
+								// urutan : p 	line[i]	line[i+1] 	q
+								buckets.at(y).at(j+1) = line[i];
+								buckets.at(y).push_back(line[i+1]);
+								buckets.at(y).push_back(q);
+								break; // karena udah kegambar semua, di break aja
+							}
+							else {
+								drawLine(Point(line[i], y), Point(q, y), r, g, b, a);
+								// urutan : p 	line[i]	q 	line[i+1]
+								buckets.at(y).at(j+1) = line[i];
+							}
+						}
+					}
+				}
 			}
 		}
 	}

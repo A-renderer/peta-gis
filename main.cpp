@@ -8,7 +8,7 @@ using namespace std;
 
 FrameBuffer FB;
 bool quit = false;
-vector<Polygon> map;
+vector<Polygon> peta;
 Window window;
 int key;
 
@@ -42,11 +42,11 @@ int main() {
 	p_papua.moveRight(430);
 	p_papua.moveDown(160);
 
-	map.push_back(p_sumatra);
-	map.push_back(p_jawa);
-	map.push_back(p_kalimantan);
-	map.push_back(p_sulawesi);
-	map.push_back(p_papua);
+	peta.push_back(p_sumatra);
+	peta.push_back(p_jawa);
+	peta.push_back(p_kalimantan);
+	peta.push_back(p_sulawesi);
+	peta.push_back(p_papua);
 
 	system("clear");
 
@@ -117,14 +117,14 @@ void drawMap() {
 
 void redraw() { //untuk redraw view
 	vector<Polygon> temp;
-	for(int i=0;i<map.size();i++) {
+	for(int i=0;i<peta.size();i++) {
 		int j=0;
 		bool found = false;
-		while(j<map[i].e.size() && !found) {
-			if(not(map[i].e[j].x<window.getTopLeft().x || map[i].e[j].y<window.getTopLeft().y 
-				|| map[i].e[j].y>window.getBottomRight().y || map[i].e[j].x>window.getBottomRight().x)) {
+		while(j<peta[i].e.size() && !found) {
+			if(not(peta[i].e[j].x<window.getTopLeft().x || peta[i].e[j].y<window.getTopLeft().y 
+				|| peta[i].e[j].y>window.getBottomRight().y || peta[i].e[j].x>window.getBottomRight().x)) {
 				found = true;
-				temp.push_back(map[i]);
+				temp.push_back(peta[i]);
 			}
 			j++;
 		}
