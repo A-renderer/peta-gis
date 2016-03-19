@@ -32,6 +32,11 @@ Curve c_papua_1_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_3 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_2_1 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_2_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
+Curve c_papua_3_1 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
+Curve c_papua_3_2 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
+Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
+Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
+
 
 int main() {
 	// Adjust positions of the islands
@@ -68,6 +73,7 @@ int main() {
 	c_papua_1_3.scale(0.3);
 	c_papua_1_3.moveRight(540);
 	c_papua_1_3.moveDown(205);
+	
 	c_papua_2_1.rotate(10);
 	c_papua_2_1.scale(0.3);
 	c_papua_2_1.moveRight(540);
@@ -77,11 +83,29 @@ int main() {
 	c_papua_2_2.moveRight(550);
 	c_papua_2_2.moveDown(201);
 
+	c_papua_3_1.scale(0.7);
+	c_papua_3_1.moveRight(462);
+	c_papua_3_1.moveDown(172);
+	c_papua_3_2.scale(0.5);
+	c_papua_3_2.moveRight(465);
+	c_papua_3_2.moveDown(175);
+	c_papua_3_3.scale(0.3);
+	c_papua_3_3.moveRight(470);
+	c_papua_3_3.moveDown(180);
+
+	c_papua_4_1.scale(0.55);
+	c_papua_4_1.moveRight(491);
+	c_papua_4_1.moveDown(216);
+
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
 	kontur.push_back(c_papua_1_3);
 	kontur.push_back(c_papua_2_1);
 	kontur.push_back(c_papua_2_2);
+	kontur.push_back(c_papua_3_1);
+	kontur.push_back(c_papua_3_2);
+	kontur.push_back(c_papua_3_3);
+	kontur.push_back(c_papua_4_1);
 
 	system("clear");
 
@@ -151,7 +175,7 @@ void drawMap() {
 	int r1 = 50, g1 = 205, b1 = 50; // warna pulau
 	int r2 = 124, g2 = 255, b2 = 0; // warna kontur 1
 	int r3 = 255, g3 = 255, b3 = 0; // warna kontur 2
-	int r4 = 255, g4 = 140, b4 = 0; // warna kontur 3
+	int r4 = 255, g4 = 165, b4 = 0; // warna kontur 3
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
@@ -165,6 +189,10 @@ void drawMap() {
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
 	FB.rasterScan(c_papua_2_1, r2, g2, b2,0, c_papua_2_1.getMinY(), c_papua_2_1.getMaxY());
 	FB.rasterScan(c_papua_2_2, r3, g3, b3,0, c_papua_2_2.getMinY(), c_papua_2_2.getMaxY());
+	FB.rasterScan(c_papua_3_1, r2, g2, b2,0, c_papua_3_1.getMinY(), c_papua_3_1.getMaxY());
+	FB.rasterScan(c_papua_3_2, r3, g3, b3,0, c_papua_3_2.getMinY(), c_papua_3_2.getMaxY());
+	FB.rasterScan(c_papua_3_3, r4, g4, b4,0, c_papua_3_3.getMinY(), c_papua_3_3.getMaxY());
+	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
 }
 
 void redraw() { //untuk redraw view
