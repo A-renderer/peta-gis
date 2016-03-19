@@ -136,7 +136,7 @@ Curve matrixToCurve(int object[][2], int col) {
 }
 
 void drawMap() {
-	int r1 = 0, g1 = 100, b1 = 0; // warna pulau
+	int r1 = 50, g1 = 205, b1 = 50; // warna pulau
 	int r2 = 124, g2 = 255, b2 = 0; // warna kontur 1
 	int r3 = 255, g3 = 255, b3 = 0; // warna kontur 2
 	int r4 = 255, g4 = 140, b4 = 0; // warna kontur 3
