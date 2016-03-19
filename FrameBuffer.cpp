@@ -350,6 +350,74 @@ public:
 		}
 	}
 
+	void rasterScan(Curve c, int r, int g, int b, int a, int start, int finish) {
+		drawCurve(c, r, g, b, a);
+
+		int n =c.finals.size();
+
+		float slope[n];
+		int line[n];
+		int x,y;
+		for (int i=0; i<n; i++) {
+			int dx = c.finals[i+1].x - c.finals[i].x;
+			int dy = c.finals[i+1].y - c.finals[i].y;
+
+			if (i==n-1) {
+				dx = c.finals[0].x - c.finals[i].x;
+				dy = c.finals[0].y - c.finals[i].y;
+			}
+
+			if (dy == 0) {
+				slope[i] = 1;
+			}
+			if (dx == 0) {
+				slope[i] = 0;
+			}
+			if (dx != 0 && dy != 0) {
+				slope[i] = (float) dx/dy;
+			}
+		}
+
+		vector<Line> lines;
+		for (int y=start; y<=finish; y++) { //600 itu batas pixel paling bawah, masi ngasal wkwkwk
+			int k = 0;
+			// Cari titik perpotongan
+			for (int i=0; i<n; i++) {
+				if (i==n-1) {
+					if (c.finals[i].y <= y && c.finals[0].y > y || c.finals[0].y <= y && c.finals[i].y > y) {
+						//if (!(c.finals[i-1].y < c.finals[i].y && c.finals[i+1].y < c.finals[i].y) || !(c.finals[i-1].y > c.finals[i].y && c.finals[i+1].y > c.finals[i].y)){
+							line[k] = (int) (c.finals[i].x + slope[i] * (y - c.finals[i].y));
+							k++;
+						//}
+					}
+				} else {
+					if (c.finals[i].y <= y && c.finals[i+1].y > y || c.finals[i+1].y <= y && c.finals[i].y > y) {
+						//if (!(c.finals[i-1].y < c.finals[i].y && c.finals[i+1].y < c.finals[i].y) || !(c.finals[i-1].y > c.finals[i].y && c.finals[i+1].y > c.finals[i].y)){
+							line[k] = (int) (c.finals[i].x + slope[i] * (y - c.finals[i].y));
+							k++;
+						//}
+					}
+				}
+			}
+
+			//ngurutin line
+			for (int j=0; j<k-1; j++) {
+				for (int i=0; i<k-1; i++) {
+					if (line[i] > line[i+1]) {
+						int temp = line[i];
+						line[i] = line[i+1];
+						line[i+1] = temp;
+					}
+				}
+			}
+
+
+			for (int i=0; i<k; i+=2) {
+				drawLine(Point(line[i], y), Point(line[i+1], y), r, g, b, a);
+			}
+		}
+	}
+
 	void drawWindow(Window w, int r, int g, int b, int t){
 		drawPolygon(w.square,r,g,b,t);
 	}
