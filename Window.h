@@ -32,6 +32,7 @@ class Window {
 		void moveDown(float k);
 		void moveRight(float k);
 		void moveLeft(float k);
+		void rotateCW(float k);
 };
 
 #endif
