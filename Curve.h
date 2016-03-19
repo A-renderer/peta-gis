@@ -14,10 +14,20 @@ class Curve {
 		Curve& operator=(const Curve& c);
 		~Curve();
 
+		int getMinX();
+		int getMaxX();
+		int getMinY();
+		int getMaxY();
+		int getMidX();
+		int getMidY();
+
 		void moveRight(float dx);
 		void moveLeft (float dx);
 		void moveUp (float dy);
 		void moveDown (float dy);
+		void scale(float k);
+		void rotate(double deg);
+		void rotateCenter(double deg);
 
 		vector<Point> points;
 		vector<Point> finals;
