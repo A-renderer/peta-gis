@@ -9,8 +9,8 @@ ThreeDimension::ThreeDimension(vector<Point> pol) {
 	frontside = Polygon(pol);
 
 	backside = Polygon(pol);
-	backside.moveUp(10);
-	backside.moveRight(10);
+	backside.moveDown(5);
+	backside.moveLeft(5);
 
 	for (int i=0; i<pol.size()-1; i++) {
 		lines.push_back(Line(frontside.e[i], backside.e[i]));

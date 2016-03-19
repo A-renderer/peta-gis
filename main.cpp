@@ -16,7 +16,7 @@ int key;
 
 int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
-vector<Point> matrixToVectorOfPoints(int object[][2], int col);
+ThreeDimension matrixToVectorOfPoints(int object[][2], int col);
 Curve matrixToCurve(int object[][2], int col);
 void drawMap();
 void redraw();
@@ -29,11 +29,11 @@ vector < vector <int> > colors;
 
 View view;
 Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
-ThreeDimension p_sumatra(matrixToVectorOfPoints(sumatra,sizeof(sumatra)/sizeof(*sumatra)));
-ThreeDimension p_kalimantan(matrixToVectorOfPoints(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan)));
-ThreeDimension p_sulawesi(matrixToVectorOfPoints(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi)));
-ThreeDimension p_papua(matrixToVectorOfPoints(papua,sizeof(papua)/sizeof(*papua)));
-ThreeDimension p_jawa(matrixToVectorOfPoints(jawa,sizeof(jawa)/sizeof(*jawa)));
+ThreeDimension p_sumatra = matrixToVectorOfPoints(sumatra,sizeof(sumatra)/sizeof(*sumatra));
+ThreeDimension p_kalimantan = matrixToVectorOfPoints(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
+ThreeDimension p_sulawesi = matrixToVectorOfPoints(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
+ThreeDimension p_papua = matrixToVectorOfPoints(papua,sizeof(papua)/sizeof(*papua));
+ThreeDimension p_jawa = matrixToVectorOfPoints(jawa,sizeof(jawa)/sizeof(*jawa));
 Curve c_papua_1_1 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_3 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
@@ -64,6 +64,7 @@ Curve c_jawa_2_3 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
 int main() {
 	// Adjust positions of the islands
 	p_sumatra.moveDown(10);
+	p_sumatra.moveRight(5);
 	p_jawa.scale(1.8);
 	p_jawa.moveDown(265);
 	p_jawa.moveRight(170);
@@ -266,13 +267,13 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
-vector<Point> matrixToVectorOfPoints(int object[][2], int col) {
+ThreeDimension matrixToVectorOfPoints(int object[][2], int col) {
 	vector<Point> points;
 	points.clear();
 	for(int i=0;i<col;i++) {
 		points.push_back(Point(object[i][0],object[i][1]));
 	}
-	return points;
+	return ThreeDimension(points);
 }
 
 Curve matrixToCurve(int object[][2], int col) {
@@ -291,6 +292,7 @@ void drawMap() {
 	int r4 = 255, g4 = 165, b4 = 0; // warna kontur 3
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
+	FB.drawThreeDimension(peta);
 /*
 	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
 	FB.rasterScan(p_jawa, r1, g1, b1, 0, p_jawa.getMinY(), p_jawa.getMaxY());
