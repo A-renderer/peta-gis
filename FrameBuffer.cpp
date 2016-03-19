@@ -451,14 +451,14 @@ public:
 		}
 	}
 
-	void scanLine3D(vector< vector<Point> > polygon, vector<int[4]> color){
+	void scanLine3D(vector< vector<Point> > polygon, vector< vector <int> > color){
 		// initialize bucket
 		map<int, vector<int> > buckets;
 
-		for (int i=TOP; i<=BOTTOM; i++){
+		for (int i=0; i<=512; i++){
 			vector<int> bucket;
-			bucket.push_back(LEFT);
-			bucket.push_back(RIGHT);
+			bucket.push_back(0);
+			bucket.push_back(1336);
 			buckets[i] = bucket;
 		}
 
@@ -467,18 +467,27 @@ public:
 		int idx = 0;
 
 		while(idx < polygon.size()) {
-			int r = color.at(idx)[0];
-			int g = color.at(idx)[1];
-			int b = color.at(idx)[2];
-			int a = color.at(idx)[3];
+			int r = color.at(idx).at(0);
+			int g = color.at(idx).at(1);
+			int b = color.at(idx).at(2);
+			int a = color.at(idx).at(3);
+
 			int n = polygon.at(idx).size();
 
 			float slope[n];
 			int* line;
 			int x,y;
+
 			for (int i=0; i<n; i++) {
-				int dx = polygon.at(idx).at(i+1).x - polygon.at(idx).at(i).x;
-				int dy = polygon.at(idx).at(i+1).y - polygon.at(idx).at(i).y;
+				int dx, dy;
+				if(i+1 == n) {
+					dx = polygon.at(idx).at(0).x - polygon.at(idx).at(i).x;
+					dy = polygon.at(idx).at(0).y - polygon.at(idx).at(i).y;
+				}
+				else {
+					dx = polygon.at(idx).at(i+1).x - polygon.at(idx).at(i).x;
+					dy = polygon.at(idx).at(i+1).y - polygon.at(idx).at(i).y;
+				}
 
 				if (dy == 0) {
 					slope[i] = 1;
@@ -496,9 +505,14 @@ public:
 				// Cari titik perpotongan dan urutkan
 				int k=0;
 				int line[n];
+
 				for (int i=0; i<n; i++) {
-					if (polygon.at(idx).at(i).y <= y && polygon.at(idx).at(i+1).y > y || polygon.at(idx).at(i+1).y <= y && polygon.at(idx).at(i).y > y) {
-						if (!(polygon.at(idx).at(i-1).y < polygon.at(idx).at(i).y && polygon.at(idx).at(i+1).y < polygon.at(idx).at(i).y) || !(polygon.at(idx).at(i-1).y > polygon.at(idx).at(i).y && polygon.at(idx).at(i+1).y > polygon.at(idx).at(i).y)){
+					int next = i+1;
+					if(next == n) next = 0;
+					int prev = i-1;
+					if(prev == -1) prev = n-1;
+					if (polygon.at(idx).at(i).y <= y && polygon.at(idx).at(next).y > y || polygon.at(idx).at(next).y <= y && polygon.at(idx).at(i).y > y) {
+						if (!(polygon.at(idx).at(prev).y < polygon.at(idx).at(i).y && polygon.at(idx).at(next).y < polygon.at(idx).at(i).y) || !(polygon.at(idx).at(i-1).y > polygon.at(idx).at(i).y && polygon.at(idx).at(next).y > polygon.at(idx).at(i).y)){
 							line[k] = (int) (polygon.at(idx).at(i).x + slope[i] * (y - polygon.at(idx).at(i).y));
 							k++;
 						}
@@ -563,7 +577,9 @@ public:
 						}
 					}
 				}
+
 			}
+			idx++;
 		}
 	}
 
