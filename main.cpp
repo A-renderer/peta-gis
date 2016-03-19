@@ -9,11 +9,13 @@ using namespace std;
 FrameBuffer FB;
 bool quit = false;
 vector<Polygon> peta;
+vector<Curve> kontur;
 Window window;
 int key;
 
 int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
+Curve matrixToCurve(int object[][2], int col);
 void drawMap();
 void redraw();
 void move(int key);
@@ -25,6 +27,9 @@ Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kal
 Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
 Polygon p_papua = matrixToPolygon(papua,sizeof(papua)/sizeof(*papua));
 Polygon p_jawa = matrixToPolygon(jawa,sizeof(jawa)/sizeof(*jawa));
+Curve c_papua_1_1 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
+Curve c_papua_1_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
+Curve c_papua_1_3 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 
 int main() {
 	// Adjust positions of the islands
@@ -48,21 +53,25 @@ int main() {
 	peta.push_back(p_sulawesi);
 	peta.push_back(p_papua);
 
+	//Adjust positions of the contour
+	c_papua_1_1.rotate(20);
+	c_papua_1_1.scale(0.6);
+	c_papua_1_1.moveRight(520);
+	c_papua_1_1.moveDown(174);
+	c_papua_1_2.rotate(20);
+	c_papua_1_2.scale(0.45);
+	c_papua_1_2.moveRight(530);
+	c_papua_1_2.moveDown(190);
+	c_papua_1_3.rotate(20);
+	c_papua_1_3.scale(0.3);
+	c_papua_1_3.moveRight(540);
+	c_papua_1_3.moveDown(205);
+
+	kontur.push_back(c_papua_1_1);
+	kontur.push_back(c_papua_1_2);
+	kontur.push_back(c_papua_1_3);
+
 	system("clear");
-
-	/*** HANYA UNTUK MENCOBA CURVE ***/
-	vector<Point> V;
-	V.push_back(Point(1100,100));
-	V.push_back(Point(1300,200));
-	V.push_back(Point(1300,500));
-	V.push_back(Point(1000,150));
-	V.push_back(Point(1100,100));
-	Curve c1(V,0.05);
-	FB.drawCurve(c1,255,255,255,0);
-	FB.drawCurveLine(c1,0,255,255,0);
-	FB.rasterScan(c1,255,255,255,0, 0,512);
-	/*********************************/
-
 
 	drawMap();
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
@@ -117,16 +126,31 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+Curve matrixToCurve(int object[][2], int col) {
+	vector<Point> p;
+	p.clear();
+	for(int i=0;i<col;i++) {
+		p.push_back(Point(object[i][0],object[i][1]));
+	}
+	return Curve(p,0.05);
+}
+
 void drawMap() {
-	//FUNGSI RASTER SCAN UDA MANGGIL DRAWPOLYGON JD GA PERLU 2 KALI
+	int r1 = 0, g1 = 100, b1 = 0; // warna pulau
+	int r2 = 124, g2 = 255, b2 = 0; // warna kontur 1
+	int r3 = 255, g3 = 255, b3 = 0; // warna kontur 2
+	int r4 = 255, g4 = 140, b4 = 0; // warna kontur 3
+	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
-	FB.rasterScan(p_sumatra,0, 100, 0, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
-	//FB.drawPolygon(p_jawa,0,100,0,0);
-	FB.rasterScan(p_jawa,0, 100, 0, 0, p_jawa.getMinY(), p_jawa.getMaxY());
-	FB.rasterScan(p_kalimantan,0, 100, 0, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
-	FB.rasterScan(p_sulawesi,0, 100, 0, 0, p_sulawesi.getMinY(), p_sulawesi.getMaxY());
-	//FB.drawPolygon(p_papua,0,100,0,0);
-	FB.rasterScan(p_papua,0, 100, 0, 0, p_papua.getMinY(), p_papua.getMaxY());
+	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
+	FB.rasterScan(p_jawa, r1, g1, b1, 0, p_jawa.getMinY(), p_jawa.getMaxY());
+	FB.rasterScan(p_kalimantan, r1, g1, b1, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
+	FB.rasterScan(p_sulawesi, r1, g1, b1, 0, p_sulawesi.getMinY(), p_sulawesi.getMaxY());
+	FB.rasterScan(p_papua, r1, g1, b1, 0, p_papua.getMinY(), p_papua.getMaxY());
+	
+	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
+	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
+	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
