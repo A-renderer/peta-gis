@@ -193,10 +193,6 @@ void drawMap() {
 
 	FB.rasterScan(p_papua, r1, g1, b1, 0, p_papua.getMinY(), p_papua.getMaxY());
 
-	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
-	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
-	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
-
 	FB.rasterScan(c_papua_2_1, r2, g2, b2,0, c_papua_2_1.getMinY(), c_papua_2_1.getMaxY());
 	FB.rasterScan(c_papua_2_2, r3, g3, b3,0, c_papua_2_2.getMinY(), c_papua_2_2.getMaxY());
 	FB.rasterScan(c_papua_3_1, r2, g2, b2,0, c_papua_3_1.getMinY(), c_papua_3_1.getMaxY());
@@ -205,6 +201,10 @@ void drawMap() {
 	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
 */
 	FB.scanLine3D(polygons,colors);
+
+	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
+	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
+	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
@@ -319,10 +319,13 @@ void initDraw() {
 	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	polygons.push_back(c_papua_2_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
-	polygons.push_back(c_papua_1_2.finals);
-	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
-	polygons.push_back(c_papua_1_1.finals);
-	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	//polygons.push_back(c_papua_1_3.finals);
+	//colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	//polygons.push_back(c_papua_1_2.finals);
+	//colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	//polygons.push_back(c_papua_1_1.finals);
+	//colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	
 	polygons.push_back(p_papua.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
