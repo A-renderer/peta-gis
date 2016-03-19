@@ -475,7 +475,20 @@ public:
 				//for (int i=1; i<=2) {
 
 				//}
-				//if (getR(x,y)!=135 && getG(x,y)!=206 && getB(x,y)!=235 && getA(x,y)!=0) {
+				if (getR(x,y)==0 && getG(x,y)==0 && getB(x,y)==0) {
+					for (int i=1; i<=2; i++) {
+						putPixel(Point(tempX+i, tempY), 135,206,235,0);
+						putPixel(Point(tempX-i, tempY), 135,206,235,0);
+						putPixel(Point(tempX, tempY+i), 135,206,235,0);
+						putPixel(Point(tempX, tempY-i), 135,206,235,0);
+						putPixel(Point(tempX+i, tempY+i), 135,206,235,0);
+						putPixel(Point(tempX-i, tempY+i), 135,206,235,0);
+						putPixel(Point(tempX-i, tempY+i), 135,206,235,0);
+						putPixel(Point(tempX+i, tempY-i), 135,206,235,0);
+					}
+				} else if (getR(x,y)==135 && getG(x,y)==206 && getB(x,y)==235) {
+					//do nothing
+				} else {
 					for (int i=1; i<=2; i++) {
 						putPixel(Point(tempX+i, tempY), r,g,b,a);
 						putPixel(Point(tempX-i, tempY), r,g,b,a);
@@ -486,7 +499,7 @@ public:
 						putPixel(Point(tempX-i, tempY+i), r,g,b,a);
 						putPixel(Point(tempX+i, tempY-i), r,g,b,a);
 					}
-				//}
+				}
 			}		
 		}
 	}
