@@ -50,6 +50,20 @@ int main() {
 
 	system("clear");
 
+	/*** HANYA UNTUK MENCOBA CURVE ***/
+	vector<Point> V;
+	V.push_back(Point(1100,100));
+	V.push_back(Point(1300,200));
+	V.push_back(Point(1300,500));
+	V.push_back(Point(1000,150));
+	V.push_back(Point(1100,100));
+	Curve c1(V,0.05);
+	FB.drawCurve(c1,255,255,255,0);
+	FB.drawCurveLine(c1,0,255,255,0);
+	FB.rasterScan(c1,255,255,255,0, 0,512);
+	/*********************************/
+
+
 	drawMap();
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);

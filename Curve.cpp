@@ -27,6 +27,62 @@ Curve::~Curve(){
 	finals.clear();
 }
 
+int Curve::getMinX() {
+	int i=1;
+	int minX=points[0].x;
+	while(i<points.size()) {
+		if(points[i].x<minX) {
+			minX=points[i].x;
+		}
+		i++;
+	}
+	return minX;
+}
+
+int Curve::getMaxX() {
+	int i=1;
+	int maxX=points[0].x;
+	while(i<points.size()) {
+		if(points[i].x>maxX) {
+			maxX=points[i].x;
+		}
+		i++;
+	}
+	return maxX;
+}
+
+int Curve::getMinY() {
+	int i=1;
+	int minY=points[0].y;
+	while(i<points.size()) {
+		if(points[i].y<minY) {
+			minY=points[i].y;
+		}
+		i++;
+	}
+	return minY;
+}
+
+int Curve::getMaxY() {
+	int i=1;
+	int maxY=points[0].y;
+	while(i<points.size()) {
+		if(points[i].y>maxY) {
+			maxY=points[i].y;
+		}
+		i++;
+	}
+	return maxY;
+}
+
+int Curve::getMidX() {
+	return (getMaxX() + getMinX())/2;
+}
+
+int Curve::getMidY() {
+	return (getMaxY() + getMinY())/2;
+}
+
 void Curve::moveRight(float dx) {
 	int i=0;
 	while(i < points.size()) {
@@ -62,6 +118,43 @@ void Curve::moveDown(float dy) {
 		i++;
 	}
 	computeFinals();
+}
+
+void Curve::scale(float k) {
+	for (int i=0;i<points.size();i++) {
+        points[i].x = points[i].x*k;
+        points[i].y = points[i].y*k;
+    }
+    computeFinals();
+}
+
+void Curve::rotate(double deg) {
+	int i=0;
+	double cons=0.0174532925; double tempx,tempy;
+
+	while(i < points.size()) {
+		tempx= ((cos(deg*cons)*(points[i].x - points[0].x)) - (sin(deg*cons)*(points[i].y - points[0].y)) + points[0].x)+0.5;
+		tempy= ((sin(deg*cons)*(points[i].x - points[0].x)) + (cos(deg*cons)*(points[i].y - points[0].y)) + points[0].y)+0.5;
+		points[i].x = tempx;
+		points[i].y = tempy;
+		i++;
+	}
+	computeFinals();
+}
+
+void Curve::rotateCenter(double deg) {
+	int i=0;
+	double cons=0.0174532925; double tempx,tempy;
+
+	int centerX=getMidX(), centerY=getMidY();
+
+	while(i < points.size()) {
+		tempx= ((cos(deg*cons)*(points[i].x - centerX)) - (sin(deg*cons)*(points[i].y - centerY)) + centerX) + 0.5;
+		tempy= ((sin(deg*cons)*(points[i].x - centerX)) + (cos(deg*cons)*(points[i].y - centerY)) + centerY) + 0.5;
+		points[i].x = tempx;
+		points[i].y = tempy;
+		i++;
+	}
 }
 
 void Curve::computeFinals(){
