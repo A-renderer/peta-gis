@@ -29,6 +29,7 @@ void drawCredits();
 void initMap();
 void drawPin(int x, int y);
 void placePin();
+void placeProvinceName(string str, int x, int y);
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -687,4 +688,22 @@ void drawPin(int x, int y) {
 void placePin() {
 	// ACEH
 	drawPin(27,70);
+}
+
+void placeProvinceName(string str, int x, int y) {
+	int size = 2;
+	FB.cleararea(0,0,1366,512);
+	if(str.compare("sumatra")==0) {
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, x*2, y*2);
+		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+20)*2, y*2);
+		printLetter(font_M, sizeof(font_M)/sizeof(*font_M), size, x+35,y);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+55, y);
+		printLetter(font_T, sizeof(font_T)/sizeof(*font_T), size, x+70,y);
+		printLetterCounter(font_R_out, sizeof(font_R_out)/sizeof(*font_R_out), font_R_in, sizeof(font_R_in)/sizeof(*font_R_in), size/2, (x+91)*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+107, y);
+	}
+	else if(str.compare("jawa")==0) {
+
+	}
+
 }

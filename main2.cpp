@@ -28,6 +28,7 @@ void launchScreen();
 void drawCredits();
 void initMap();
 void placePin(int x, int y);
+void placeProvinceName(string str, int x, int y);
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -83,14 +84,12 @@ Curve c_kalimantan_1_2 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(
 Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
 Curve c_kalimantan_2_1 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
-Polygon p_pin = matrixToPolygon(pin,sizeof(pin)/sizeof(*pin));
-Curve c_pin = matrixToCurve(pin,sizeof(pin)/sizeof(*pin));
 
 int main() {
 	//launchScreen();
 
 	FB.clearscreen();
-	placePin(10,10);
+	placeProvinceName("sumatra",10,10);
 
 	return 0;
 }
@@ -646,13 +645,20 @@ void initMap() {
 	c_kalimantan_2_2.moveDown(145);
 }
 
+void placeProvinceName(string str, int x, int y) {
+	int size = 2;
+	FB.cleararea(0,0,1366,512);
+	if(str.compare("sumatra")==0) {
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, x*2, y*2);
+		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+20)*2, y*2);
+		printLetter(font_M, sizeof(font_M)/sizeof(*font_M), size, x+35,y);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+55, y);
+		printLetter(font_T, sizeof(font_T)/sizeof(*font_T), size, x+70,y);
+		printLetterCounter(font_R_out, sizeof(font_R_out)/sizeof(*font_R_out), font_R_in, sizeof(font_R_in)/sizeof(*font_R_in), size/2, (x+91)*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+107, y);
+	}
+	else if(str.compare("jawa")==0) {
 
-void placePin(int x, int y) {
-	int scale = 10;
-	Curve c_pin = matrixToCurve(pin,sizeof(pin)/sizeof(*pin));
-	c_pin.scale(scale);
-	c_pin.moveRight(x);
-	c_pin.moveDown(y);
-	FB.rasterScan(c_pin,135, 250, 250, 0, 0, 599);
-	FB.drawCircle(Point(25+x,10+y),10*scale,255,255,255,0);
+	}
+
 }
