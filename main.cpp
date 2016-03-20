@@ -89,6 +89,11 @@ int main() {
 	// Adjust positions of the islands
 	initMap();
 	system("clear");
+	
+	launchScreen();
+	sleep(2);
+
+	FB.clearscreen();
 	initDraw();
 	drawMap();
 
@@ -172,32 +177,16 @@ void drawMap() {
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 	FB.drawThreeDimension(peta);
 	FB.scanLine3D(polygons,colors);
-/*
-	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
-	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
-	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
-	FB.rasterScan(c_sulawesi_1_4,r2,g2,b2,0,c_sulawesi_1_4.getMinY(), c_sulawesi_1_4.getMaxY());
-	FB.rasterScan(c_sulawesi_2_1,r2,g2,b2,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
-	FB.rasterScan(c_sulawesi_2_2,r3,g3,b3,0,c_sulawesi_2_2.getMinY(), c_sulawesi_2_2.getMaxY());
-	FB.rasterScan(c_sulawesi_2_3,r4,g4,b4,0,c_sulawesi_2_3.getMinY(), c_sulawesi_2_3.getMaxY());
-*/
-	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
-	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
-	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
-<<<<<<< HEAD
-	
-	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
-=======
-	/*FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
->>>>>>> benerin kontur sama nambahin huruf
-	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_2.getMinY(), c_jawa_1_2.getMaxY());
-	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_3.getMinY(), c_jawa_1_3.getMaxY());
-	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());*/
-	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
-	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
 
-	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
-	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
+	FB.rasterScan(c_papua_1_1, r2, g2, b2, 0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
+	FB.rasterScan(c_papua_1_2, r3, g3, b3, 0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
+	FB.rasterScan(c_papua_1_3, r4, g4, b4, 0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
+	
+	FB.rasterScan(c_jawa_2_2, r3, g3, b3, 0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
+	FB.rasterScan(c_jawa_2_3, r4, g4, b4, 0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
+
+	FB.rasterScan(c_sulawesi_1_2, r2, g2, b2, 0, c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
+	FB.rasterScan(c_sulawesi_1_3, r2, g2, b2, 0, c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
@@ -377,8 +366,6 @@ void initDraw() {
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 	polygons.push_back(c_sulawesi_1_1.e);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
-	polygons.push_back(p_sulawesi.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
 	for (int i=0; i<peta.size(); i++) {
 		polygons.push_back(peta[i].frontside.e);
@@ -434,15 +421,18 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 }
 
 void launchScreen() {
-	float size = 1.5;
-	int y_peta = 50;
+	float size = 5;
+	int y_peta = 25;
+	int margin_left = 80;
 
-	FB.cleararea(0,0,1020,400);
+	FB.cleararea(0,0,1366,512);
     
-	printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2, y_peta*2);
-	printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 25, y_peta);
-	printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 50, y_peta);
+	printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2+margin_left*2, y_peta*2);
+	printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 23+margin_left, y_peta);
+	printLetter(font_T, sizeof(font_T)/sizeof(*font_T), size, 38+margin_left, y_peta);
+	printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 55+margin_left, y_peta);
 }
+
 
 void drawCredits() {
 	float size = 1.5;
