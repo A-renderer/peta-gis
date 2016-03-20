@@ -685,6 +685,15 @@ void drawPin(int x, int y) {
 }
 
 void placePin() {
-	// ACEH
-	drawPin(27,70);
+	// SUMATERA
+	drawPin(27,70); // Aceh
+	drawPin(60,100); // Medan
+	drawPin(100,150); // Pekanbaru
+	drawPin(75,170); // Padang
+	drawPin(118,202); // Jambi
+	drawPin(137,285); // Lampung
+
+	// JAWA
+	drawPin(190,287); // Banten
+	drawPin(205,280); // Jakarta
 }
