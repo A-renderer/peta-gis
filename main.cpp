@@ -66,6 +66,9 @@ Curve c_jawa_1_3 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
 Curve c_jawa_2_1 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
 Curve c_jawa_2_2 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
 Curve c_jawa_2_3 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
+Curve c_kalimantan_1_1 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
+Curve c_kalimantan_1_2 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
+Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
 
 //Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 
@@ -212,10 +215,18 @@ int main() {
 	c_sumatra_5_1.moveRight(116);
 	c_sumatra_5_1.moveDown(190);
 
-	//p_sumatra_1_1.rotate(20);
-	//p_sumatra_1_1.scale(0.6);
-	//p_sumatra_1_1.moveRight(14);
-	//p_sumatra_1_1.moveDown(57);
+	c_kalimantan_1_1.rotate(120);
+	c_kalimantan_1_1.scale(0.7);
+	c_kalimantan_1_1.moveRight(272);
+	c_kalimantan_1_1.moveDown(97);
+	c_kalimantan_1_2.rotate(120);
+	c_kalimantan_1_2.scale(0.5);
+	c_kalimantan_1_2.moveRight(260);
+	c_kalimantan_1_2.moveDown(110);
+	c_kalimantan_1_3.rotate(120);
+	c_kalimantan_1_3.scale(0.3);
+	c_kalimantan_1_3.moveRight(255);
+	c_kalimantan_1_3.moveDown(123);
 
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
@@ -235,6 +246,9 @@ int main() {
 	kontur.push_back(c_sumatra_1_1);
 	kontur.push_back(c_sumatra_1_2);
 	kontur.push_back(c_sumatra_1_3);
+	kontur.push_back(c_kalimantan_1_1);
+	kontur.push_back(c_kalimantan_1_2);
+	kontur.push_back(c_kalimantan_1_3);
 
 	system("clear");
 
@@ -339,6 +353,7 @@ void drawMap() {
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
+	
 	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
 	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_2.getMinY(), c_jawa_1_2.getMaxY());
 	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_3.getMinY(), c_jawa_1_3.getMaxY());
@@ -346,7 +361,9 @@ void drawMap() {
 	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
 	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
 
-	//FB.drawPolygon(p_sumatra_1_1,0,0,0,0);
+	FB.rasterScan(c_kalimantan_1_1, r2, g2, b2,0, c_kalimantan_1_1.getMinY(), c_kalimantan_1_1.getMaxY());
+	FB.rasterScan(c_kalimantan_1_2, r3, g3, b3,0, c_kalimantan_1_2.getMinY(), c_kalimantan_1_2.getMaxY());
+	FB.rasterScan(c_kalimantan_1_3, r4, g4, b4,0, c_kalimantan_1_3.getMinY(), c_kalimantan_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
