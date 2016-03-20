@@ -700,4 +700,9 @@ void placePin() {
 	drawPin(274,305); // Semarang
 	drawPin(278,320); // Jogja
 	drawPin(340,312); // Surabaya
+
+	//PAPUA
+	drawPin(480,187); //irian barat
+	drawPin(590,222); //irian timur
+	drawPin(547,255); //irian tengah
 }
