@@ -13,6 +13,8 @@ vector<ThreeDimension> peta;
 vector<Curve> kontur;
 Window window;
 int key;
+bool showPins = false;
+bool showName = false;
 
 int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
@@ -196,14 +198,18 @@ void drawMap() {
 
 	FB.rasterScan(c_sulawesi_1_2, r2, g2, b2, 0, c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
 	FB.rasterScan(c_sulawesi_1_3, r2, g2, b2, 0, c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
-
-	placePin();
-	placeProvinceName("sumatra",20,150);
-	placeProvinceName("sulawesi",315,123);
-	placeProvinceName("jawa",250,300);
-	placeProvinceName("papua",497,180);
-	placeProvinceName("kalimantan", 140, 60);
 	
+	if (showPins){
+		placePin();
+	}
+	
+	if (showName){
+		placeProvinceName("sumatra",20,150);
+		placeProvinceName("sulawesi",315,123);
+		placeProvinceName("jawa",250,300);
+		placeProvinceName("papua",497,180);
+		placeProvinceName("kalimantan", 140, 60);
+	}
 }
 
 void redraw() { //untuk redraw view
@@ -278,6 +284,12 @@ void move(int key) {
 		else if(key=='j') {
 				window.rotateCW(-5.0);
 		}
+		else if(key=='n'){ //nama pulau
+			showName = true;
+		}
+		else if(key=='i'){ //nama pulau
+			showPins = true;
+		}
 		else if(key=='c') { //creadits
 			FB.cleararea(0,0,599,400);
 			drawCredits();
@@ -290,7 +302,7 @@ void move(int key) {
 			system("clear");
 		}
 
-		if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
+		if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j' || key=='n' || key=='i'){
 			//menggambar ulang peta
 			drawMap();
 
