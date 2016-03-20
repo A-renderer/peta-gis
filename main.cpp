@@ -195,7 +195,7 @@ void drawMap() {
 	placeProvinceName("sumatra",20,150);
 	placeProvinceName("jawa",250,300);
 	placeProvinceName("papua",480,220);
-
+	placeProvinceName("kalimantan", 140, 60);
 }
 
 void redraw() { //untuk redraw view
@@ -739,5 +739,17 @@ void placeProvinceName(string str, int x, int y) {
 		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_R_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, (x+34)*2, y*2);
 		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+52)*2, y*2);
 		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+65, y);
+	}
+	else if(str.compare("kalimantan")==0){
+		printLetter(font_K, sizeof(font_K)/sizeof(*font_K), size, x, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+20, y);
+		printLetter(font_L, sizeof(font_L)/sizeof(*font_L), size, x+43, y);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, x+60, y);
+		printLetter(font_M, sizeof(font_M)/sizeof(*font_M), size, x+68, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+90, y);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, x+112, y);
+		printLetter(font_T, sizeof(font_T)/sizeof(*font_T), size, x+130, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+148, y);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, x+171, y);
 	}
 }
