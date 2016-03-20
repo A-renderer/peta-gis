@@ -30,6 +30,7 @@ void initMap();
 void drawPin(int x, int y);
 void placePin();
 void placeProvinceName(string str, int x, int y);
+void drawCompass();
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -86,6 +87,10 @@ Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(
 Curve c_kalimantan_2_1 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 
+Polygon p_compass_top= matrixToPolygon(compass_top,sizeof(compass_top)/sizeof(*compass_top));
+Polygon p_compass= matrixToPolygon(compass_top,sizeof(compass_top)/sizeof(*compass_top));
+
+
 int main() {
 	// Adjust positions of the islands
 	initMap();
@@ -101,9 +106,10 @@ int main() {
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
-
+	
 	redraw();
-
+	drawCompass();
+	
 	while(!quit){
 		if(kbhit()){
 			key=getchar();
@@ -167,6 +173,8 @@ Curve matrixToCurve(int object[][2], int col) {
 }
 
 void drawMap() {
+	
+
 	int r1 = 50, g1 = 205, b1 = 50; // warna pulau
 	int r2 = 124, g2 = 255, b2 = 0; // warna kontur 1
 	int r3 = 255, g3 = 255, b3 = 0; // warna kontur 2
@@ -175,6 +183,9 @@ void drawMap() {
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 	FB.drawThreeDimension(peta);
 	FB.scanLine3D(polygons,colors);
+	printLetter(font_U, sizeof(font_U)/sizeof(*font_U), 0.2, 2865, 35);
+	FB.rasterScan(p_compass,255, 0, 0, 0, 20, 40);
+	
 
 	FB.rasterScan(c_papua_1_1, r2, g2, b2, 0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3, 0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
@@ -192,6 +203,7 @@ void drawMap() {
 	placeProvinceName("jawa",250,300);
 	placeProvinceName("papua",497,180);
 	placeProvinceName("kalimantan", 140, 60);
+	
 }
 
 void redraw() { //untuk redraw view
@@ -755,4 +767,21 @@ void placeProvinceName(string str, int x, int y) {
 		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, (x+109)*2, y*2);
 		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, x+129,y);
 	}
+}
+
+void drawCompass(){
+	printLetter(font_U, sizeof(font_U)/sizeof(*font_U), 0.2, 2865, 35);
+	for(int i=0; i<3; i++){
+		FB.rasterScan(p_compass_top,255, 0, 0, 0, 20, 40);
+		p_compass_top.rotateCenter(2);
+		usleep(300000);
+		FB.cleararea(555, 18, 595, 62);
+	}
+	for(int i=0; i<3; i++){
+		FB.rasterScan(p_compass_top,255, 0, 0, 0, 20, 40);
+		p_compass_top.rotateCenter(-5);
+		usleep(300000);
+		FB.cleararea(555, 18, 595, 62);
+	}
+	FB.rasterScan(p_compass,255, 0, 0, 0, 20, 40);
 }
