@@ -193,6 +193,7 @@ void drawMap() {
 
 	placePin();
 	placeProvinceName("sumatra",20,150);
+	placeProvinceName("jawa",250,300);
 
 }
 
@@ -381,7 +382,6 @@ void initDraw() {
 }
 
 void printLetter(int font[][2], int col, float size, int x, int y) {
-	if(y > 0 &&  y < 512-size*y) {
 		vector<Point> points;
 		points.clear();
 		for(int i=0;i<col-1;i++) {
@@ -392,14 +392,9 @@ void printLetter(int font[][2], int col, float size, int x, int y) {
 		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
 		FB.drawPolygon(Poly.e,25,25,122,0);
 		FB.rasterScan(Poly, 10, 10, 10, 0, Poly.getMinY(), Poly.getMaxY());
-	}
-	else {
-		//gausah digambar
-	}
 }
 
 void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y) {
-	if(y > 0 && y < 512-size*y) {
 		vector<Point> points;
 		vector<Point> points2;
 
@@ -422,10 +417,6 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
 	
 		FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
-	}
-	else {
-		//gausah digambar
-	}	
 }
 
 void launchScreen() {
@@ -738,6 +729,9 @@ void placeProvinceName(string str, int x, int y) {
 		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+107, y);
 	}
 	else if(str.compare("jawa")==0) {
-
+		printLetter(font_J, sizeof(font_J)/sizeof(*font_J), size/2, x*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+15, y);
+		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, x+31,y);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+55, y);
 	}
 }
