@@ -194,7 +194,9 @@ void drawMap() {
 	placePin();
 	placeProvinceName("sumatra",20,150);
 	placeProvinceName("sulawesi",315,120);
-
+	placeProvinceName("jawa",250,300);
+	placeProvinceName("papua",480,220);
+	placeProvinceName("kalimantan", 140, 60);
 }
 
 void redraw() { //untuk redraw view
@@ -382,7 +384,6 @@ void initDraw() {
 }
 
 void printLetter(int font[][2], int col, float size, int x, int y) {
-	if(y > 0 &&  y < 512-size*y) {
 		vector<Point> points;
 		points.clear();
 		for(int i=0;i<col-1;i++) {
@@ -393,40 +394,29 @@ void printLetter(int font[][2], int col, float size, int x, int y) {
 		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
 		FB.drawPolygon(Poly.e,25,25,122,0);
 		FB.rasterScan(Poly, 10, 10, 10, 0, Poly.getMinY(), Poly.getMaxY());
-	}
-	else {
-		//gausah digambar
-	}
 }
 
 void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y) {
-	if(y > 0 && y < 512-size*y) {
-		vector<Point> points;
-		vector<Point> points2;
+	vector<Point> points;
+	vector<Point> points2;
 
-		points.clear();
-		for(int i=0;i<col1-1;i++) {
-			points.push_back(Point((float)(font1[i][0]*size)+(float)size*x,(float)(font1[i][1]*size)+(float)size*y));
-		}
-		Polygon Poly1(points);
-		FB.drawPolygon(Poly1.e,25,25,122,0);
-		FB.rasterScan(Poly1, 10, 10, 10, 0, Poly1.getMinY(), Poly1.getMaxY());
-
-		points2.clear();
-		for(int i=0;i<col2-1;i++) {
-			points2.push_back(Point((float)(font2[i][0]*size)+(float)size*x,(float)(font2[i][1]*size)+(float)size*y));
-		}
-		Polygon Poly2(points2);
-
-		FB.drawPolygon(Poly2.e,25,25,122,0);
-		
-		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
-	
-		FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
+	points.clear();
+	for(int i=0;i<col1-1;i++) {
+		points.push_back(Point((float)(font1[i][0]*size)+(float)size*x,(float)(font1[i][1]*size)+(float)size*y));
 	}
-	else {
-		//gausah digambar
-	}	
+	Polygon Poly1(points);
+	FB.drawPolygon(Poly1.e,25,25,122,0);
+	FB.rasterScan(Poly1, 10, 10, 10, 0, Poly1.getMinY(), Poly1.getMaxY());
+
+	points2.clear();
+	for(int i=0;i<col2-1;i++) {
+		points2.push_back(Point((float)(font2[i][0]*size)+(float)size*x,(float)(font2[i][1]*size)+(float)size*y));
+	}
+	Polygon Poly2(points2);
+
+	FB.drawPolygon(Poly2.e,25,25,122,0);
+	
+	FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
 }
 
 void launchScreen() {
@@ -739,7 +729,29 @@ void placeProvinceName(string str, int x, int y) {
 		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+107, y);
 	}
 	else if(str.compare("jawa")==0) {
-
+		printLetter(font_J, sizeof(font_J)/sizeof(*font_J), size/2, x*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+15, y);
+		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, x+31,y);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+55, y);
+	}
+	else if(str.compare("papua")==0) {
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_R_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, x*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+14, y);
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_R_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, (x+34)*2, y*2);
+		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+52)*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+65, y);
+	}
+	else if(str.compare("kalimantan")==0){
+		printLetter(font_K, sizeof(font_K)/sizeof(*font_K), size, x, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+20, y);
+		printLetter(font_L, sizeof(font_L)/sizeof(*font_L), size, x+43, y);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, x+60, y);
+		printLetter(font_M, sizeof(font_M)/sizeof(*font_M), size, x+68, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+90, y);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, x+112, y);
+		printLetter(font_T, sizeof(font_T)/sizeof(*font_T), size, x+130, y);
+		printLetter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), size, x+148, y);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, x+171, y);
 	}
 
 	else if(str.compare("sulawesi")==0) {
