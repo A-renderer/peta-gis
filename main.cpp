@@ -27,6 +27,8 @@ void initDraw();
 void launchScreen();
 void drawCredits();
 void initMap();
+void drawPin(int x, int y);
+void placePin();
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -89,7 +91,7 @@ int main() {
 	// Adjust positions of the islands
 	initMap();
 	system("clear");
-	
+
 	launchScreen();
 	sleep(2);
 
@@ -102,7 +104,7 @@ int main() {
 	FB.drawWindow(window,255,255,255,0);
 
 	redraw();
-	
+
 	while(!quit){
 		if(kbhit()){
 			key=getchar();
@@ -187,6 +189,9 @@ void drawMap() {
 
 	FB.rasterScan(c_sulawesi_1_2, r2, g2, b2, 0, c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
 	FB.rasterScan(c_sulawesi_1_3, r2, g2, b2, 0, c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
+
+	placePin();
+
 }
 
 void redraw() { //untuk redraw view
@@ -667,4 +672,19 @@ void initMap() {
 	c_kalimantan_2_2.scale(0.25);
 	c_kalimantan_2_2.moveRight(267);
 	c_kalimantan_2_2.moveDown(145);
+}
+
+void drawPin(int x, int y) {
+	int radius = 4;
+	vector<Point> pin;
+	pin.push_back(Point(x-radius,y));
+	pin.push_back(Point(x,y-radius));
+	pin.push_back(Point(x+radius,y));
+	pin.push_back(Point(x,y+radius));
+	FB.rasterScan(pin,130,0,0,0,y-radius,y+radius);
+}
+
+void placePin() {
+	// ACEH
+	drawPin(27,70);
 }

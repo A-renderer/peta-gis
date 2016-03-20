@@ -27,6 +27,7 @@ void initDraw();
 void launchScreen();
 void drawCredits();
 void initMap();
+void placePin(int x, int y);
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -82,11 +83,14 @@ Curve c_kalimantan_1_2 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(
 Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
 Curve c_kalimantan_2_1 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
-
-//Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
+Polygon p_pin = matrixToPolygon(pin,sizeof(pin)/sizeof(*pin));
+Curve c_pin = matrixToCurve(pin,sizeof(pin)/sizeof(*pin));
 
 int main() {
-	launchScreen();
+	//launchScreen();
+
+	FB.clearscreen();
+	placePin(10,10);
 
 	return 0;
 }
@@ -640,4 +644,15 @@ void initMap() {
 	c_kalimantan_2_2.scale(0.25);
 	c_kalimantan_2_2.moveRight(267);
 	c_kalimantan_2_2.moveDown(145);
+}
+
+
+void placePin(int x, int y) {
+	int scale = 10;
+	Curve c_pin = matrixToCurve(pin,sizeof(pin)/sizeof(*pin));
+	c_pin.scale(scale);
+	c_pin.moveRight(x);
+	c_pin.moveDown(y);
+	FB.rasterScan(c_pin,135, 250, 250, 0, 0, 599);
+	FB.drawCircle(Point(25+x,10+y),10*scale,255,255,255,0);
 }
