@@ -696,4 +696,8 @@ void placePin() {
 	// JAWA
 	drawPin(190,287); // Banten
 	drawPin(205,280); // Jakarta
+	drawPin(220,300); // Bandung
+	drawPin(274,305); // Semarang
+	drawPin(278,320); // Jogja
+	drawPin(340,312); // Surabaya
 }
