@@ -3,23 +3,28 @@
 #include <termios.h>
 #include <fstream>
 #include "assets.h"
+#include "ThreeDimension.h"
 
 using namespace std;
 
 FrameBuffer FB;
 bool quit = false;
-vector<Polygon> peta;
+vector<ThreeDimension> peta;
 vector<Curve> kontur;
 Window window;
 int key;
 
 int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
+ThreeDimension matrixToVectorOfPoints(int object[][2], int col);
 Curve matrixToCurve(int object[][2], int col);
+void printLetter(int font[][2], int col, float size, int x, int y);
+void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y);
 void drawMap();
 void redraw();
 void move(int key);
 void initDraw();
+void drawCredits();
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -27,11 +32,11 @@ vector < vector <int> > colors;
 
 View view;
 Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
-Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
-Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
-Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
-Polygon p_papua = matrixToPolygon(papua,sizeof(papua)/sizeof(*papua));
-Polygon p_jawa = matrixToPolygon(jawa,sizeof(jawa)/sizeof(*jawa));
+ThreeDimension p_sumatra = matrixToVectorOfPoints(sumatra,sizeof(sumatra)/sizeof(*sumatra));
+ThreeDimension p_kalimantan = matrixToVectorOfPoints(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
+ThreeDimension p_sulawesi = matrixToVectorOfPoints(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
+ThreeDimension p_papua = matrixToVectorOfPoints(papua,sizeof(papua)/sizeof(*papua));
+ThreeDimension p_jawa = matrixToVectorOfPoints(jawa,sizeof(jawa)/sizeof(*jawa));
 Curve c_papua_1_1 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_2 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
 Curve c_papua_1_3 = matrixToCurve(papua_1,sizeof(papua_1)/sizeof(*papua_1));
@@ -41,18 +46,47 @@ Curve c_papua_3_1 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_2 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
-Polygon c_sulawesi_1_1 = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
-Curve c_sulawesi_2_1 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
-Curve c_sulawesi_2_2 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
+
+Polygon c_sulawesi_1_1 = matrixToPolygon(sulawesi_1_1,sizeof(sulawesi_1_1)/sizeof(*sulawesi_1_1));
+Polygon c_sulawesi_1_2 = matrixToPolygon(sulawesi_1_2,sizeof(sulawesi_1_2)/sizeof(*sulawesi_1_2));
+Polygon c_sulawesi_1_3 = matrixToPolygon(sulawesi_1_3,sizeof(sulawesi_1_3)/sizeof(*sulawesi_1_3));
+Polygon c_sulawesi_1_4 = matrixToPolygon(sulawesi_1_3,sizeof(sulawesi_1_3)/sizeof(*sulawesi_1_3));
+Curve c_sulawesi_2_1 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+Curve c_sulawesi_2_2 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+Curve c_sulawesi_2_3 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+
+Curve c_sumatra_1_1 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
+Curve c_sumatra_1_2 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
+Curve c_sumatra_1_3 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
+Curve c_sumatra_2_1 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_2_2 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_2_3 = matrixToCurve(sumatra_2,sizeof(sumatra_2)/sizeof(*sumatra_2));
+Curve c_sumatra_3_1 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_3_2 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_3_3 = matrixToCurve(sumatra_3,sizeof(sumatra_3)/sizeof(*sumatra_3));
+Curve c_sumatra_4_1 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_4_2 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_4_3 = matrixToCurve(sumatra_4,sizeof(sumatra_4)/sizeof(*sumatra_4));
+Curve c_sumatra_5_1 = matrixToCurve(sumatra_5,sizeof(sumatra_5)/sizeof(*sumatra_5));
+Curve c_sumatra_5_2 = matrixToCurve(sumatra_5,sizeof(sumatra_5)/sizeof(*sumatra_5));
+Curve c_jawa_1_1 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
+Curve c_jawa_1_2 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
+Curve c_jawa_1_3 = matrixToCurve(jawa_1,sizeof(jawa_1)/sizeof(*jawa_1));
+Curve c_jawa_2_1 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
+Curve c_jawa_2_2 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
+Curve c_jawa_2_3 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
+
+//Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 
 int main() {
 	// Adjust positions of the islands
 	p_sumatra.moveDown(10);
+	p_sumatra.moveRight(5);
 	p_jawa.scale(1.8);
 	p_jawa.moveDown(265);
 	p_jawa.moveRight(170);
 	p_kalimantan.scale(1.55);
-	p_kalimantan.moveRight(150);
+	p_kalimantan.moveRight(155);
 	p_kalimantan.moveDown(50);
 	p_sulawesi.scale(1.25);
 	p_sulawesi.moveRight(320);
@@ -61,13 +95,39 @@ int main() {
 	p_papua.moveRight(430);
 	p_papua.moveDown(160);
 
-	peta.push_back(p_sumatra);
+	peta.push_back(p_papua);
 	peta.push_back(p_jawa);
 	peta.push_back(p_kalimantan);
 	peta.push_back(p_sulawesi);
-	peta.push_back(p_papua);
+	peta.push_back(p_sumatra);
 
 	//Adjust positions of the contour
+	c_jawa_1_1.rotate(195);
+	c_jawa_1_1.scale(0.9);
+	c_jawa_1_1.moveRight(340);
+	c_jawa_1_1.moveDown(240);
+	c_jawa_1_2.rotate(193);
+	c_jawa_1_2.scale(0.6);
+	c_jawa_1_2.moveRight(330);
+	c_jawa_1_2.moveDown(270);
+	c_jawa_1_3.rotate(192);
+	c_jawa_1_3.scale(0.3);
+	c_jawa_1_3.moveRight(322);
+	c_jawa_1_3.moveDown(301);
+
+	c_jawa_2_1.rotate(30);
+	c_jawa_2_1.scale(2);
+	c_jawa_2_1.moveRight(210);
+	c_jawa_2_1.moveDown(255);
+	c_jawa_2_2.rotate(30);
+	c_jawa_2_2.scale(1.3);
+	c_jawa_2_2.moveRight(223);
+	c_jawa_2_2.moveDown(275);
+	c_jawa_2_3.rotate(30);
+	c_jawa_2_3.scale(0.8);
+	c_jawa_2_3.moveRight(230);
+	c_jawa_2_3.moveDown(287);
+
 	c_papua_1_1.rotate(20);
 	c_papua_1_1.scale(0.6);
 	c_papua_1_1.moveRight(520);
@@ -104,17 +164,90 @@ int main() {
 	c_papua_4_1.moveRight(491);
 	c_papua_4_1.moveDown(216);
 
-	c_sulawesi_1_1.scale(0.8);
-	c_sulawesi_1_1.moveRight(330);
-	c_sulawesi_1_1.moveDown(120);
+	c_sulawesi_1_1.scale(0.5);
+	c_sulawesi_1_1.moveRight(386);
+	c_sulawesi_1_1.moveDown(106);
+	c_sulawesi_1_2.scale(0.5);
+	c_sulawesi_1_2.moveRight(382);
+	c_sulawesi_1_2.moveDown(102);
+	c_sulawesi_1_3.scale(0.7);
+	c_sulawesi_1_3.moveRight(346);
+	c_sulawesi_1_3.moveDown(140);
+	c_sulawesi_1_4.scale(0.6);
+	c_sulawesi_1_4.moveRight(320);
+	c_sulawesi_1_4.moveDown(155);
 
-	c_sulawesi_2_1.scale(1.1);
+	c_sulawesi_2_1.scale(1.2);
 	c_sulawesi_2_1.moveRight(336);
 	c_sulawesi_2_1.moveDown(152);
-
 	c_sulawesi_2_2.scale(0.9);
 	c_sulawesi_2_2.moveRight(340);
 	c_sulawesi_2_2.moveDown(154);
+	c_sulawesi_2_3.scale(0.5);
+	c_sulawesi_2_3.moveRight(345);
+	c_sulawesi_2_3.moveDown(160);
+
+	c_sumatra_1_1.rotate(20);
+	c_sumatra_1_1.scale(0.6);
+	c_sumatra_1_1.moveRight(19);
+	c_sumatra_1_1.moveDown(57);
+	c_sumatra_1_2.rotate(20);
+	c_sumatra_1_2.scale(0.5);
+	c_sumatra_1_2.moveRight(23);
+	c_sumatra_1_2.moveDown(64);
+	c_sumatra_1_3.rotate(20);
+	c_sumatra_1_3.scale(0.3);
+	c_sumatra_1_3.moveRight(29);
+	c_sumatra_1_3.moveDown(77);
+
+	c_sumatra_2_1.rotate(-117);
+	c_sumatra_2_1.scale(0.8);
+	c_sumatra_2_1.moveRight(100);
+	c_sumatra_2_1.moveDown(118);
+	c_sumatra_2_2.rotate(-117);
+	c_sumatra_2_2.scale(0.7);
+	c_sumatra_2_2.moveRight(97);
+	c_sumatra_2_2.moveDown(123);
+	c_sumatra_2_3.rotate(-117);
+	c_sumatra_2_3.scale(0.4);
+	c_sumatra_2_3.moveRight(92);
+	c_sumatra_2_3.moveDown(149);
+
+	c_sumatra_3_1.rotate(5);
+	c_sumatra_3_1.scale(0.55);
+	c_sumatra_3_1.moveRight(92);
+	c_sumatra_3_1.moveDown(195);
+	c_sumatra_3_2.rotate(5);
+	c_sumatra_3_2.scale(0.45);
+	c_sumatra_3_2.moveRight(95);
+	c_sumatra_3_2.moveDown(198);
+	c_sumatra_3_3.rotate(5);
+	c_sumatra_3_3.scale(0.25);
+	c_sumatra_3_3.moveRight(99);
+	c_sumatra_3_3.moveDown(203);
+
+	c_sumatra_4_1.rotate(2);
+	c_sumatra_4_1.scale(0.5);
+	c_sumatra_4_1.moveRight(88);
+	c_sumatra_4_1.moveDown(198);
+	c_sumatra_4_2.rotate(2);
+	c_sumatra_4_2.scale(0.3);
+	c_sumatra_4_2.moveRight(105);
+	c_sumatra_4_2.moveDown(225);
+	c_sumatra_4_3.rotate(2);
+	c_sumatra_4_3.scale(0.23);
+	c_sumatra_4_3.moveRight(112);
+	c_sumatra_4_3.moveDown(232);
+
+	c_sumatra_5_1.rotate(88);
+	c_sumatra_5_1.scale(1.5);
+	c_sumatra_5_1.moveRight(116);
+	c_sumatra_5_1.moveDown(190);
+
+	//p_sumatra_1_1.rotate(20);
+	//p_sumatra_1_1.scale(0.6);
+	//p_sumatra_1_1.moveRight(14);
+	//p_sumatra_1_1.moveDown(57);
 
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
@@ -125,6 +258,15 @@ int main() {
 	kontur.push_back(c_papua_3_2);
 	kontur.push_back(c_papua_3_3);
 	kontur.push_back(c_papua_4_1);
+	kontur.push_back(c_jawa_1_1);
+	kontur.push_back(c_jawa_1_2);
+	kontur.push_back(c_jawa_1_3);
+	kontur.push_back(c_jawa_2_1);
+	kontur.push_back(c_jawa_2_2);
+	kontur.push_back(c_jawa_2_3);
+	kontur.push_back(c_sumatra_1_1);
+	kontur.push_back(c_sumatra_1_2);
+	kontur.push_back(c_sumatra_1_3);
 
 	system("clear");
 
@@ -184,6 +326,15 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+ThreeDimension matrixToVectorOfPoints(int object[][2], int col) {
+	vector<Point> points;
+	points.clear();
+	for(int i=0;i<col;i++) {
+		points.push_back(Point(object[i][0],object[i][1]));
+	}
+	return ThreeDimension(points);
+}
+
 Curve matrixToCurve(int object[][2], int col) {
 	vector<Point> p;
 	p.clear();
@@ -201,6 +352,8 @@ void drawMap() {
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 
+	FB.drawThreeDimension(peta);
+/*
 	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
 	FB.rasterScan(p_jawa, r1, g1, b1, 0, p_jawa.getMinY(), p_jawa.getMaxY());
 	FB.rasterScan(p_kalimantan, r1, g1, b1, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
@@ -214,12 +367,33 @@ void drawMap() {
 	FB.rasterScan(c_papua_3_2, r3, g3, b3,0, c_papua_3_2.getMinY(), c_papua_3_2.getMaxY());
 	FB.rasterScan(c_papua_3_3, r4, g4, b4,0, c_papua_3_3.getMinY(), c_papua_3_3.getMaxY());
 	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
+*/
 
 	FB.scanLine3D(polygons,colors);
-
+/*
 	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
-	FB.rasterScan(c_sulawesi_2_1,r3,g3,b3,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
-	FB.rasterScan(c_sulawesi_2_2,r4,g4,b4,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
+	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
+	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
+	FB.rasterScan(c_sulawesi_1_4,r2,g2,b2,0,c_sulawesi_1_4.getMinY(), c_sulawesi_1_4.getMaxY());
+	FB.rasterScan(c_sulawesi_2_1,r2,g2,b2,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
+	FB.rasterScan(c_sulawesi_2_2,r3,g3,b3,0,c_sulawesi_2_2.getMinY(), c_sulawesi_2_2.getMaxY());
+	FB.rasterScan(c_sulawesi_2_3,r4,g4,b4,0,c_sulawesi_2_3.getMinY(), c_sulawesi_2_3.getMaxY());
+*/
+	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
+	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
+	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
+	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
+	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_2.getMinY(), c_jawa_1_2.getMaxY());
+	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_3.getMinY(), c_jawa_1_3.getMaxY());
+	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());
+	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
+	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
+
+	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
+	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
+
+	//FB.drawPolygon(p_sumatra_1_1,0,0,0,0);
+
 }
 
 void redraw() { //untuk redraw view
@@ -227,11 +401,11 @@ void redraw() { //untuk redraw view
 	for(int i=0;i<peta.size();i++) {
 		int j=0;
 		bool found = false;
-		while(j<peta[i].e.size() && !found) {
-			if(not(peta[i].e[j].x<window.getTopLeft().x || peta[i].e[j].y<window.getTopLeft().y 
-				|| peta[i].e[j].y>window.getBottomRight().y || peta[i].e[j].x>window.getBottomRight().x)) {
+		while(j<peta[i].frontside.e.size() && !found) {
+			if(not(peta[i].frontside.e[j].x<window.getTopLeft().x || peta[i].frontside.e[j].y<window.getTopLeft().y 
+				|| peta[i].frontside.e[j].y>window.getBottomRight().y || peta[i].frontside.e[j].x>window.getBottomRight().x)) {
 				found = true;
-				temp.push_back(peta[i]);
+				temp.push_back(peta[i].frontside);
 			}
 			j++;
 		}
@@ -258,25 +432,25 @@ void move(int key) {
 	//system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
 	int i = 0;
-	if(key=='w'){
+	if(key==65){
 		while(i < 10 && window.square.getMinY() > 0) {
 			window.moveUp(1);
 			i++;
 		}
 	}
-	else if(key=='a'){
+	else if(key==68){
 		while(i < 10 && window.square.getMinX() > 0) {
 			window.moveLeft(1);
 			i++;
 		}
 	}
-	else if(key=='d'){
+	else if(key==67){
 		while(i < 10 && window.square.getMaxX() < 599) {
 			window.moveRight(1);
 			i++;
 		}
 	}
-	else if(key=='s'){
+	else if(key==66){
 		while(i < 10 && window.square.getMaxY() < 400) {
 			window.moveDown(1);
 			i++;
@@ -298,13 +472,19 @@ void move(int key) {
 		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
 			window.rotateCW(-5.0);
 	}
+	else if(key=='c') { //creadits
+		FB.cleararea(0,0,599,400);
+		drawCredits();
+		quit=true;
+		system("clear");
+	}
 	else if(key=='q') {
 		// OTHER KEYS
 		quit=true;
 		system("clear");
 	}
 
-	if (key=='a' || key=='s' || key=='d' || key=='w' || key=='k' || key=='m' || key=='l' || key=='j'){
+	if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
 		//menggambar ulang peta
 		drawMap();
 
@@ -321,6 +501,7 @@ void initDraw() {
 	int rgb2[] = {124,255,0,0};
 	int rgb3[] = {255,255,0,0};
 	int rgb4[] = {255,165,0,0};
+	int rgb5[] = {100,100,100,0};
 
 	polygons.push_back(c_papua_4_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
@@ -334,25 +515,162 @@ void initDraw() {
 	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	polygons.push_back(c_papua_2_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
-	//polygons.push_back(c_papua_1_3.finals);
-	//colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+
+	polygons.push_back(c_sumatra_1_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_1_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_1_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_2_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_2_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_2_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_3_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_3_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_3_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_4_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sumatra_4_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sumatra_4_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sumatra_5_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+
 	//polygons.push_back(c_papua_1_2.finals);
 	//colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	//polygons.push_back(c_papua_1_1.finals);
 	//colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 	
-	polygons.push_back(p_papua.e);
+	/*polygons.push_back(p_papua.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_jawa.e);
+	polygons.push_back(p_jawa.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_kalimantan.e);
+	polygons.push_back(p_kalimantan.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_sulawesi.e);
+	polygons.push_back(p_sumatra.frontside.e);
+	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));*/
+
+
+	polygons.push_back(c_sulawesi_2_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sulawesi_2_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sulawesi_2_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sulawesi_1_4.e);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sulawesi_1_1.e);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(p_sulawesi.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
-	polygons.push_back(p_sumatra.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
+	for (int i=0; i<peta.size(); i++) {
+		polygons.push_back(peta[i].frontside.e);
+		colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
+	}
+}
+
+void printLetter(int font[][2], int col, float size, int x, int y) {
+	if(y > 0 &&  y < 512-size*y) {
+		vector<Point> points;
+		points.clear();
+		for(int i=0;i<col-1;i++) {
+			points.push_back(Point(font[i][0]*size+size*x,font[i][1]*size+size*y));
+		}
+
+		Polygon Poly(points);
+		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
+		FB.drawPolygon(Poly.e,25,25,122,0);
+		FB.floodFill(Poly.firePoint.x, Poly.firePoint.y, 135, 206, 235, 255, 182, 193);
+	}
+	else {
+		//gausah digambar
+	}
+}
+
+void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y) {
+	if(y > 0 && y < 512-size*y) {
+		vector<Point> points;
+		vector<Point> points2;
+
+		points.clear();
+		for(int i=0;i<col1-1;i++) {
+			points.push_back(Point(font1[i][0]*size+size*x,font1[i][1]*size+size*y));
+		}
+		Polygon Poly1(points);
+		FB.drawPolygon(Poly1.e,25,25,122,0);
+	
+		points2.clear();
+		for(int i=0;i<col2-1;i++) {
+			points2.push_back(Point(font2[i][0]*size+size*x,font2[i][1]*size+size*y));
+		}
+		Polygon Poly2(points2);
+
+		FB.drawPolygon(Poly2.e,25,25,122,0);
+	
+		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
+	
+		FB.floodFill(Poly1.firePoint.x, Poly1.firePoint.y, 135, 206, 235, 255, 182, 193);
+	}
+	else {
+		//gausah digambar
+	}	
+}
+
+void drawCredits() {
+	float size = 1.5;
+	
+	int y_vanya = 25;
+	int y_venny = 50;
+	int y_pipin = 75;
+	int y_azwar = 100;
+	int y_jessica = 125;	
+
+	while(y_jessica > 0) {
+		printLetter(font_V, sizeof(font_V)/sizeof(*font_V), size, 5, y_vanya);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 20, y_vanya);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 40, y_vanya);
+		printLetter(font_Y, sizeof(font_Y)/sizeof(*font_Y), size, 58, y_vanya);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 72, y_vanya);
+
+		printLetter(font_V, sizeof(font_V)/sizeof(*font_V), size, 5, y_venny);
+		printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 25, y_venny);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 40, y_venny);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 60, y_venny);
+		printLetter(font_Y, sizeof(font_Y)/sizeof(*font_Y), size, 78, y_venny);
+
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2, y_pipin*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 22, y_pipin);
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 30*2, y_pipin*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 47, y_pipin);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 52, y_pipin);
+
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 5, y_azwar);
+		printLetter(font_Z, sizeof(font_Z)/sizeof(*font_Z), size, 25, y_azwar);
+		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, 39, y_azwar);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 62, y_azwar);
+		printLetterCounter(font_R_out, sizeof(font_R_out)/sizeof(*font_R_out), font_R_in, sizeof(font_R_in)/sizeof(*font_R_in), size/2,  82*2, y_azwar*2);
+
+		printLetter(font_J, sizeof(font_J)/sizeof(*font_J), size/2, 5*2, y_jessica*2);
+		printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 20, y_jessica);
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, 35*2, y_jessica*2);
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, 52*2, y_jessica*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 70, y_jessica);
+		printLetter(font_C, sizeof(font_C)/sizeof(*font_C), size/2, 78*2, y_jessica*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 98, y_jessica);
+
+		y_vanya-=2; y_venny-=2; y_pipin-=2; y_azwar-=2; y_jessica-=2;
+        usleep(10000);
+        FB.cleararea(0,0,300,400);
+	}
 }

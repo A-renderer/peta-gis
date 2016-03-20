@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "View.h"
 #include "Curve.h"
+#include "ThreeDimension.h"
 
 
 class FrameBuffer {
@@ -476,31 +477,45 @@ public:
 
 				//}
 				if (getR(x,y)==0 && getG(x,y)==0 && getB(x,y)==0) {
-					for (int i=1; i<=2; i++) {
+					for (int i=1; i<=1; i++) {
+						putPixel(Point(tempX, tempY), 135,206,235,0);
 						putPixel(Point(tempX+i, tempY), 135,206,235,0);
 						putPixel(Point(tempX-i, tempY), 135,206,235,0);
 						putPixel(Point(tempX, tempY+i), 135,206,235,0);
 						putPixel(Point(tempX, tempY-i), 135,206,235,0);
 						putPixel(Point(tempX+i, tempY+i), 135,206,235,0);
 						putPixel(Point(tempX-i, tempY+i), 135,206,235,0);
-						putPixel(Point(tempX-i, tempY+i), 135,206,235,0);
+						putPixel(Point(tempX-i, tempY-i), 135,206,235,0);
 						putPixel(Point(tempX+i, tempY-i), 135,206,235,0);
 					}
 				} else if (getR(x,y)==135 && getG(x,y)==206 && getB(x,y)==235) {
 					//do nothing
 				} else {
-					for (int i=1; i<=2; i++) {
-						putPixel(Point(tempX+i, tempY), r,g,b,a);
-						putPixel(Point(tempX-i, tempY), r,g,b,a);
-						putPixel(Point(tempX, tempY+i), r,g,b,a);
-						putPixel(Point(tempX, tempY-i), r,g,b,a);
-						putPixel(Point(tempX+i, tempY+i), r,g,b,a);
-						putPixel(Point(tempX-i, tempY+i), r,g,b,a);
-						putPixel(Point(tempX-i, tempY+i), r,g,b,a);
-						putPixel(Point(tempX+i, tempY-i), r,g,b,a);
+					for (int i=1; i<=1; i++) {
+						putPixel(Point(tempX, tempY), r,g,b,a);
+						if (getR(x+1,y)==r && getG(x+i,tempY)==g && getB(x+i,y)==b) putPixel(Point(tempX+i, tempY), r,g,b,a);
+						if (getR(x-i,y)==r && getG(x-i,y)==g && getB(x-i,y)==b) putPixel(Point(tempX-i, tempY), r,g,b,a);
+						if (getR(x,y+i)==r && getG(x,y+i)==g && getB(x,y+i)==b) putPixel(Point(tempX, tempY+i), r,g,b,a);
+						if (getR(x,y-i)==r && getG(x,y-i)==g && getB(x,y-i)==b) putPixel(Point(tempX, tempY-i), r,g,b,a);
+						if (getR(x+i,y+i)==r && getG(x+i,y+i)==g && getB(x+i,y+i)==b) putPixel(Point(tempX+i, tempY+i), r,g,b,a);
+						if (getR(x-i,y+i)==r && getG(x-i,y+i)==g && getB(x-i,y+i)==b)putPixel(Point(tempX-i, tempY+i), r,g,b,a);
+						if (getR(x-i,y-i)==r && getG(x-i,y-i)==g && getB(x-i,y-i)==b) putPixel(Point(tempX-i, tempY-i), r,g,b,a);
+						if (getR(x+i,y-i)==r && getG(x+i,y-i)==g && getB(x+i,y-i)==b) putPixel(Point(tempX+i, tempY-i), r,g,b,a);
 					}
 				}
 			}		
+		}
+	}
+
+	void drawThreeDimension(vector<ThreeDimension> td) {
+		for (int i=0; i<td.size(); i++) {
+		//rasterScan(td[i].backside, 100, 100, 100, 0, td[i].backside.getMinY(), td[i].backside.getMaxY());
+			for(int j=0; j<td[i].p.size(); j++) {
+				rasterScan(td[i].p[j], 100, 100, 100, 0, td[i].p[j].getMinY(), td[i].p[j].getMaxY());
+			}
+			//for(int j=0; j<td[i].lines.size(); j++) {
+			//	drawLine(td[i].lines[j].src, td[i].lines[j].dest, 10, 10, 95, 0);
+			//}
 		}
 	}
 
