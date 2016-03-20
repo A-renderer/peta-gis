@@ -69,6 +69,8 @@ Curve c_jawa_2_3 = matrixToCurve(jawa_2,sizeof(jawa_2)/sizeof(*jawa_2));
 Curve c_kalimantan_1_1 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
 Curve c_kalimantan_1_2 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
 Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(*kalimantan_1));
+Curve c_kalimantan_2_1 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
+Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 
 //Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 
@@ -227,6 +229,14 @@ int main() {
 	c_kalimantan_1_3.scale(0.3);
 	c_kalimantan_1_3.moveRight(255);
 	c_kalimantan_1_3.moveDown(123);
+	c_kalimantan_2_1.rotate(140);
+	c_kalimantan_2_1.scale(0.4);
+	c_kalimantan_2_1.moveRight(270);
+	c_kalimantan_2_1.moveDown(124);
+	c_kalimantan_2_2.rotate(140);
+	c_kalimantan_2_2.scale(0.25);
+	c_kalimantan_2_2.moveRight(267);
+	c_kalimantan_2_2.moveDown(145);
 
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
@@ -249,6 +259,8 @@ int main() {
 	kontur.push_back(c_kalimantan_1_1);
 	kontur.push_back(c_kalimantan_1_2);
 	kontur.push_back(c_kalimantan_1_3);
+	kontur.push_back(c_kalimantan_2_1);
+	kontur.push_back(c_kalimantan_2_2);
 
 	system("clear");
 
@@ -500,6 +512,10 @@ void initDraw() {
 	polygons.push_back(c_kalimantan_1_2.finals);
 	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
 	polygons.push_back(c_kalimantan_1_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_kalimantan_2_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_kalimantan_2_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
 	for (int i=0; i<peta.size(); i++) {
