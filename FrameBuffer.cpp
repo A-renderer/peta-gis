@@ -453,8 +453,8 @@ public:
 	}
 	
 	void renderView(Window w, View v) {
-		float dx = (float) (v.P2.x - v.P1.x)/(w.getBottomRight().x - w.getTopLeft().x);
-		float dy = (float) (v.P2.y - v.P1.y)/(w.getBottomRight().y - w.getTopLeft().y);
+		float dx = (float) (v.P2.x - v.P1.x)/sqrt((pow(w.getTopRight().x - w.getTopLeft().x,2.0)) + (pow(w.getTopRight().y - w.getTopLeft().y,2.0)));
+		float dy = (float) (v.P2.y - v.P1.y)/sqrt((pow(w.getBottomRight().x - w.getTopRight().x,2.0)) + (pow(w.getBottomRight().y - w.getTopRight().y,2.0)));
 
 		if(!v.lines.empty()) {
 			for(int i=0; i<v.lines.size(); i++) {
