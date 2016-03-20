@@ -191,6 +191,8 @@ void drawMap() {
 	FB.rasterScan(c_sulawesi_1_2, r2, g2, b2, 0, c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
 	FB.rasterScan(c_sulawesi_1_3, r2, g2, b2, 0, c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
 
+	placeProvinceName("sumatra",10,10);
+
 	placePin();
 
 }
@@ -384,13 +386,13 @@ void printLetter(int font[][2], int col, float size, int x, int y) {
 		vector<Point> points;
 		points.clear();
 		for(int i=0;i<col-1;i++) {
-			points.push_back(Point(font[i][0]*size+size*x,font[i][1]*size+size*y));
+			points.push_back(Point((float)(font[i][0]*size)+(float)size*x,(float)(font[i][1]*size)+(float)size*y));
 		}
 
 		Polygon Poly(points);
 		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
 		FB.drawPolygon(Poly.e,25,25,122,0);
-		FB.floodFill(Poly.firePoint.x, Poly.firePoint.y, 135, 206, 235, 255, 182, 193);
+		FB.rasterScan(Poly, 255, 182, 193, 0, Poly.getMinY(), Poly.getMaxY());
 	}
 	else {
 		//gausah digambar
@@ -404,22 +406,23 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 
 		points.clear();
 		for(int i=0;i<col1-1;i++) {
-			points.push_back(Point(font1[i][0]*size+size*x,font1[i][1]*size+size*y));
+			points.push_back(Point((float)(font1[i][0]*size)+(float)size*x,(float)(font1[i][1]*size)+(float)size*y));
 		}
 		Polygon Poly1(points);
 		FB.drawPolygon(Poly1.e,25,25,122,0);
-	
+		FB.rasterScan(Poly1, 255, 182, 193, 0, Poly1.getMinY(), Poly1.getMaxY());
+
 		points2.clear();
 		for(int i=0;i<col2-1;i++) {
-			points2.push_back(Point(font2[i][0]*size+size*x,font2[i][1]*size+size*y));
+			points2.push_back(Point((float)(font2[i][0]*size)+(float)size*x,(float)(font2[i][1]*size)+(float)size*y));
 		}
 		Polygon Poly2(points2);
 
 		FB.drawPolygon(Poly2.e,25,25,122,0);
-	
+		
 		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
 	
-		FB.floodFill(Poly1.firePoint.x, Poly1.firePoint.y, 135, 206, 235, 255, 182, 193);
+		FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
 	}
 	else {
 		//gausah digambar
@@ -710,8 +713,8 @@ void placePin() {
 }
 
 void placeProvinceName(string str, int x, int y) {
-	int size = 2;
-	FB.cleararea(0,0,1366,512);
+	int size = 1;
+//	FB.cleararea(0,0,1366,512);
 	if(str.compare("sumatra")==0) {
 		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, x*2, y*2);
 		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+20)*2, y*2);
