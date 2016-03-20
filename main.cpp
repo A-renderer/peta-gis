@@ -184,11 +184,15 @@ void drawMap() {
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
+<<<<<<< HEAD
 	
 	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
+=======
+	/*FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
+>>>>>>> benerin kontur sama nambahin huruf
 	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_2.getMinY(), c_jawa_1_2.getMaxY());
 	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_3.getMinY(), c_jawa_1_3.getMaxY());
-	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());
+	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());*/
 	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
 	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
 
@@ -302,6 +306,15 @@ void initDraw() {
 	int rgb3[] = {255,255,0,0};
 	int rgb4[] = {255,165,0,0};
 	int rgb5[] = {100,100,100,0};
+
+	polygons.push_back(c_jawa_2_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_jawa_1_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_jawa_1_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_jawa_1_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
 	polygons.push_back(c_papua_4_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
@@ -521,7 +534,7 @@ void initMap() {
 	c_jawa_2_1.moveDown(255);
 	c_jawa_2_2.rotate(30);
 	c_jawa_2_2.scale(1.3);
-	c_jawa_2_2.moveRight(223);
+	c_jawa_2_2.moveRight(220);
 	c_jawa_2_2.moveDown(275);
 	c_jawa_2_3.rotate(30);
 	c_jawa_2_3.scale(0.8);
