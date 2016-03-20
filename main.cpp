@@ -25,6 +25,7 @@ void redraw();
 void move(int key);
 void initDraw();
 void drawCredits();
+void initMap();
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -85,215 +86,7 @@ Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(
 
 int main() {
 	// Adjust positions of the islands
-	p_sumatra.moveDown(10);
-	p_sumatra.moveRight(5);
-	p_jawa.scale(1.8);
-	p_jawa.moveDown(265);
-	p_jawa.moveRight(170);
-	p_kalimantan.scale(1.55);
-	p_kalimantan.moveRight(155);
-	p_kalimantan.moveDown(50);
-	p_sulawesi.scale(1.25);
-	p_sulawesi.moveRight(320);
-	p_sulawesi.moveDown(100);
-	p_papua.scale(2);
-	p_papua.moveRight(430);
-	p_papua.moveDown(160);
-
-	peta.push_back(p_papua);
-	peta.push_back(p_jawa);
-	peta.push_back(p_kalimantan);
-	peta.push_back(p_sulawesi);
-	peta.push_back(p_sumatra);
-
-	//Adjust positions of the contour
-	c_jawa_1_1.rotate(195);
-	c_jawa_1_1.scale(0.9);
-	c_jawa_1_1.moveRight(340);
-	c_jawa_1_1.moveDown(240);
-	c_jawa_1_2.rotate(193);
-	c_jawa_1_2.scale(0.6);
-	c_jawa_1_2.moveRight(330);
-	c_jawa_1_2.moveDown(270);
-	c_jawa_1_3.rotate(192);
-	c_jawa_1_3.scale(0.3);
-	c_jawa_1_3.moveRight(322);
-	c_jawa_1_3.moveDown(301);
-
-	c_jawa_2_1.rotate(30);
-	c_jawa_2_1.scale(2);
-	c_jawa_2_1.moveRight(210);
-	c_jawa_2_1.moveDown(255);
-	c_jawa_2_2.rotate(30);
-	c_jawa_2_2.scale(1.3);
-	c_jawa_2_2.moveRight(223);
-	c_jawa_2_2.moveDown(275);
-	c_jawa_2_3.rotate(30);
-	c_jawa_2_3.scale(0.8);
-	c_jawa_2_3.moveRight(230);
-	c_jawa_2_3.moveDown(287);
-
-	c_papua_1_1.rotate(20);
-	c_papua_1_1.scale(0.6);
-	c_papua_1_1.moveRight(520);
-	c_papua_1_1.moveDown(174);
-	c_papua_1_2.rotate(20);
-	c_papua_1_2.scale(0.45);
-	c_papua_1_2.moveRight(530);
-	c_papua_1_2.moveDown(190);
-	c_papua_1_3.rotate(20);
-	c_papua_1_3.scale(0.3);
-	c_papua_1_3.moveRight(540);
-	c_papua_1_3.moveDown(205);
-	
-	c_papua_2_1.rotate(10);
-	c_papua_2_1.scale(0.3);
-	c_papua_2_1.moveRight(540);
-	c_papua_2_1.moveDown(187);
-	c_papua_2_2.rotate(10);
-	c_papua_2_2.scale(0.15);
-	c_papua_2_2.moveRight(550);
-	c_papua_2_2.moveDown(201);
-
-	c_papua_3_1.scale(0.7);
-	c_papua_3_1.moveRight(462);
-	c_papua_3_1.moveDown(172);
-	c_papua_3_2.scale(0.5);
-	c_papua_3_2.moveRight(465);
-	c_papua_3_2.moveDown(175);
-	c_papua_3_3.scale(0.3);
-	c_papua_3_3.moveRight(470);
-	c_papua_3_3.moveDown(180);
-
-	c_papua_4_1.scale(0.55);
-	c_papua_4_1.moveRight(491);
-	c_papua_4_1.moveDown(216);
-
-	c_sulawesi_1_1.scale(0.5);
-	c_sulawesi_1_1.moveRight(386);
-	c_sulawesi_1_1.moveDown(106);
-	c_sulawesi_1_2.scale(0.5);
-	c_sulawesi_1_2.moveRight(382);
-	c_sulawesi_1_2.moveDown(102);
-	c_sulawesi_1_3.scale(0.7);
-	c_sulawesi_1_3.moveRight(346);
-	c_sulawesi_1_3.moveDown(140);
-	c_sulawesi_1_4.scale(0.6);
-	c_sulawesi_1_4.moveRight(320);
-	c_sulawesi_1_4.moveDown(155);
-
-	c_sulawesi_2_1.scale(1.2);
-	c_sulawesi_2_1.moveRight(336);
-	c_sulawesi_2_1.moveDown(152);
-	c_sulawesi_2_2.scale(0.9);
-	c_sulawesi_2_2.moveRight(340);
-	c_sulawesi_2_2.moveDown(154);
-	c_sulawesi_2_3.scale(0.5);
-	c_sulawesi_2_3.moveRight(345);
-	c_sulawesi_2_3.moveDown(160);
-
-	c_sumatra_1_1.rotate(20);
-	c_sumatra_1_1.scale(0.6);
-	c_sumatra_1_1.moveRight(19);
-	c_sumatra_1_1.moveDown(57);
-	c_sumatra_1_2.rotate(20);
-	c_sumatra_1_2.scale(0.5);
-	c_sumatra_1_2.moveRight(23);
-	c_sumatra_1_2.moveDown(64);
-	c_sumatra_1_3.rotate(20);
-	c_sumatra_1_3.scale(0.3);
-	c_sumatra_1_3.moveRight(29);
-	c_sumatra_1_3.moveDown(77);
-
-	c_sumatra_2_1.rotate(-117);
-	c_sumatra_2_1.scale(0.8);
-	c_sumatra_2_1.moveRight(100);
-	c_sumatra_2_1.moveDown(118);
-	c_sumatra_2_2.rotate(-117);
-	c_sumatra_2_2.scale(0.7);
-	c_sumatra_2_2.moveRight(97);
-	c_sumatra_2_2.moveDown(123);
-	c_sumatra_2_3.rotate(-117);
-	c_sumatra_2_3.scale(0.4);
-	c_sumatra_2_3.moveRight(92);
-	c_sumatra_2_3.moveDown(149);
-
-	c_sumatra_3_1.rotate(5);
-	c_sumatra_3_1.scale(0.55);
-	c_sumatra_3_1.moveRight(92);
-	c_sumatra_3_1.moveDown(195);
-	c_sumatra_3_2.rotate(5);
-	c_sumatra_3_2.scale(0.45);
-	c_sumatra_3_2.moveRight(95);
-	c_sumatra_3_2.moveDown(198);
-	c_sumatra_3_3.rotate(5);
-	c_sumatra_3_3.scale(0.25);
-	c_sumatra_3_3.moveRight(99);
-	c_sumatra_3_3.moveDown(203);
-
-	c_sumatra_4_1.rotate(2);
-	c_sumatra_4_1.scale(0.5);
-	c_sumatra_4_1.moveRight(88);
-	c_sumatra_4_1.moveDown(198);
-	c_sumatra_4_2.rotate(2);
-	c_sumatra_4_2.scale(0.3);
-	c_sumatra_4_2.moveRight(105);
-	c_sumatra_4_2.moveDown(225);
-	c_sumatra_4_3.rotate(2);
-	c_sumatra_4_3.scale(0.23);
-	c_sumatra_4_3.moveRight(112);
-	c_sumatra_4_3.moveDown(232);
-
-	c_sumatra_5_1.rotate(88);
-	c_sumatra_5_1.scale(1.5);
-	c_sumatra_5_1.moveRight(116);
-	c_sumatra_5_1.moveDown(190);
-
-	c_kalimantan_1_1.rotate(120);
-	c_kalimantan_1_1.scale(0.7);
-	c_kalimantan_1_1.moveRight(272);
-	c_kalimantan_1_1.moveDown(97);
-	c_kalimantan_1_2.rotate(120);
-	c_kalimantan_1_2.scale(0.5);
-	c_kalimantan_1_2.moveRight(260);
-	c_kalimantan_1_2.moveDown(110);
-	c_kalimantan_1_3.rotate(120);
-	c_kalimantan_1_3.scale(0.3);
-	c_kalimantan_1_3.moveRight(255);
-	c_kalimantan_1_3.moveDown(123);
-	c_kalimantan_2_1.rotate(140);
-	c_kalimantan_2_1.scale(0.4);
-	c_kalimantan_2_1.moveRight(270);
-	c_kalimantan_2_1.moveDown(124);
-	c_kalimantan_2_2.rotate(140);
-	c_kalimantan_2_2.scale(0.25);
-	c_kalimantan_2_2.moveRight(267);
-	c_kalimantan_2_2.moveDown(145);
-
-	kontur.push_back(c_papua_1_1);
-	kontur.push_back(c_papua_1_2);
-	kontur.push_back(c_papua_1_3);
-	kontur.push_back(c_papua_2_1);
-	kontur.push_back(c_papua_2_2);
-	kontur.push_back(c_papua_3_1);
-	kontur.push_back(c_papua_3_2);
-	kontur.push_back(c_papua_3_3);
-	kontur.push_back(c_papua_4_1);
-	kontur.push_back(c_jawa_1_1);
-	kontur.push_back(c_jawa_1_2);
-	kontur.push_back(c_jawa_1_3);
-	kontur.push_back(c_jawa_2_1);
-	kontur.push_back(c_jawa_2_2);
-	kontur.push_back(c_jawa_2_3);
-	kontur.push_back(c_sumatra_1_1);
-	kontur.push_back(c_sumatra_1_2);
-	kontur.push_back(c_sumatra_1_3);
-	kontur.push_back(c_kalimantan_1_1);
-	kontur.push_back(c_kalimantan_1_2);
-	kontur.push_back(c_kalimantan_1_3);
-	kontur.push_back(c_kalimantan_2_1);
-	kontur.push_back(c_kalimantan_2_2);
-
+	initMap();
 	system("clear");
 
 	initDraw();
@@ -673,4 +466,191 @@ void drawCredits() {
         usleep(10000);
         FB.cleararea(0,0,300,400);
 	}
+}
+
+void initMap() {
+	p_sumatra.moveDown(10);
+	p_sumatra.moveRight(5);
+	p_jawa.scale(1.8);
+	p_jawa.moveDown(265);
+	p_jawa.moveRight(170);
+	p_kalimantan.scale(1.55);
+	p_kalimantan.moveRight(155);
+	p_kalimantan.moveDown(50);
+	p_sulawesi.scale(1.25);
+	p_sulawesi.moveRight(320);
+	p_sulawesi.moveDown(100);
+	p_papua.scale(2);
+	p_papua.moveRight(430);
+	p_papua.moveDown(160);
+
+	peta.push_back(p_papua);
+	peta.push_back(p_jawa);
+	peta.push_back(p_kalimantan);
+	peta.push_back(p_sulawesi);
+	peta.push_back(p_sumatra);
+
+	//Adjust positions of the contour
+	c_jawa_1_1.rotate(195);
+	c_jawa_1_1.scale(0.9);
+	c_jawa_1_1.moveRight(340);
+	c_jawa_1_1.moveDown(240);
+	c_jawa_1_2.rotate(193);
+	c_jawa_1_2.scale(0.6);
+	c_jawa_1_2.moveRight(330);
+	c_jawa_1_2.moveDown(270);
+	c_jawa_1_3.rotate(192);
+	c_jawa_1_3.scale(0.3);
+	c_jawa_1_3.moveRight(322);
+	c_jawa_1_3.moveDown(301);
+
+	c_jawa_2_1.rotate(30);
+	c_jawa_2_1.scale(2);
+	c_jawa_2_1.moveRight(210);
+	c_jawa_2_1.moveDown(255);
+	c_jawa_2_2.rotate(30);
+	c_jawa_2_2.scale(1.3);
+	c_jawa_2_2.moveRight(223);
+	c_jawa_2_2.moveDown(275);
+	c_jawa_2_3.rotate(30);
+	c_jawa_2_3.scale(0.8);
+	c_jawa_2_3.moveRight(230);
+	c_jawa_2_3.moveDown(287);
+
+	c_papua_1_1.rotate(20);
+	c_papua_1_1.scale(0.6);
+	c_papua_1_1.moveRight(520);
+	c_papua_1_1.moveDown(174);
+	c_papua_1_2.rotate(20);
+	c_papua_1_2.scale(0.45);
+	c_papua_1_2.moveRight(530);
+	c_papua_1_2.moveDown(190);
+	c_papua_1_3.rotate(20);
+	c_papua_1_3.scale(0.3);
+	c_papua_1_3.moveRight(540);
+	c_papua_1_3.moveDown(205);
+	
+	c_papua_2_1.rotate(10);
+	c_papua_2_1.scale(0.3);
+	c_papua_2_1.moveRight(540);
+	c_papua_2_1.moveDown(187);
+	c_papua_2_2.rotate(10);
+	c_papua_2_2.scale(0.15);
+	c_papua_2_2.moveRight(550);
+	c_papua_2_2.moveDown(201);
+
+	c_papua_3_1.scale(0.7);
+	c_papua_3_1.moveRight(462);
+	c_papua_3_1.moveDown(172);
+	c_papua_3_2.scale(0.5);
+	c_papua_3_2.moveRight(465);
+	c_papua_3_2.moveDown(175);
+	c_papua_3_3.scale(0.3);
+	c_papua_3_3.moveRight(470);
+	c_papua_3_3.moveDown(180);
+
+	c_papua_4_1.scale(0.55);
+	c_papua_4_1.moveRight(491);
+	c_papua_4_1.moveDown(216);
+
+	c_sulawesi_1_1.scale(0.5);
+	c_sulawesi_1_1.moveRight(386);
+	c_sulawesi_1_1.moveDown(106);
+	c_sulawesi_1_2.scale(0.5);
+	c_sulawesi_1_2.moveRight(382);
+	c_sulawesi_1_2.moveDown(102);
+	c_sulawesi_1_3.scale(0.7);
+	c_sulawesi_1_3.moveRight(346);
+	c_sulawesi_1_3.moveDown(140);
+	c_sulawesi_1_4.scale(0.6);
+	c_sulawesi_1_4.moveRight(320);
+	c_sulawesi_1_4.moveDown(155);
+
+	c_sulawesi_2_1.scale(1.2);
+	c_sulawesi_2_1.moveRight(336);
+	c_sulawesi_2_1.moveDown(152);
+	c_sulawesi_2_2.scale(0.9);
+	c_sulawesi_2_2.moveRight(340);
+	c_sulawesi_2_2.moveDown(154);
+	c_sulawesi_2_3.scale(0.5);
+	c_sulawesi_2_3.moveRight(345);
+	c_sulawesi_2_3.moveDown(160);
+
+	c_sumatra_1_1.rotate(20);
+	c_sumatra_1_1.scale(0.6);
+	c_sumatra_1_1.moveRight(19);
+	c_sumatra_1_1.moveDown(57);
+	c_sumatra_1_2.rotate(20);
+	c_sumatra_1_2.scale(0.5);
+	c_sumatra_1_2.moveRight(23);
+	c_sumatra_1_2.moveDown(64);
+	c_sumatra_1_3.rotate(20);
+	c_sumatra_1_3.scale(0.3);
+	c_sumatra_1_3.moveRight(29);
+	c_sumatra_1_3.moveDown(77);
+
+	c_sumatra_2_1.rotate(-117);
+	c_sumatra_2_1.scale(0.8);
+	c_sumatra_2_1.moveRight(100);
+	c_sumatra_2_1.moveDown(118);
+	c_sumatra_2_2.rotate(-117);
+	c_sumatra_2_2.scale(0.7);
+	c_sumatra_2_2.moveRight(97);
+	c_sumatra_2_2.moveDown(123);
+	c_sumatra_2_3.rotate(-117);
+	c_sumatra_2_3.scale(0.4);
+	c_sumatra_2_3.moveRight(92);
+	c_sumatra_2_3.moveDown(149);
+
+	c_sumatra_3_1.rotate(5);
+	c_sumatra_3_1.scale(0.55);
+	c_sumatra_3_1.moveRight(92);
+	c_sumatra_3_1.moveDown(195);
+	c_sumatra_3_2.rotate(5);
+	c_sumatra_3_2.scale(0.45);
+	c_sumatra_3_2.moveRight(95);
+	c_sumatra_3_2.moveDown(198);
+	c_sumatra_3_3.rotate(5);
+	c_sumatra_3_3.scale(0.25);
+	c_sumatra_3_3.moveRight(99);
+	c_sumatra_3_3.moveDown(203);
+
+	c_sumatra_4_1.rotate(2);
+	c_sumatra_4_1.scale(0.5);
+	c_sumatra_4_1.moveRight(88);
+	c_sumatra_4_1.moveDown(198);
+	c_sumatra_4_2.rotate(2);
+	c_sumatra_4_2.scale(0.3);
+	c_sumatra_4_2.moveRight(105);
+	c_sumatra_4_2.moveDown(225);
+	c_sumatra_4_3.rotate(2);
+	c_sumatra_4_3.scale(0.23);
+	c_sumatra_4_3.moveRight(112);
+	c_sumatra_4_3.moveDown(232);
+
+	c_sumatra_5_1.rotate(88);
+	c_sumatra_5_1.scale(1.5);
+	c_sumatra_5_1.moveRight(116);
+	c_sumatra_5_1.moveDown(190);
+
+	c_kalimantan_1_1.rotate(120);
+	c_kalimantan_1_1.scale(0.7);
+	c_kalimantan_1_1.moveRight(272);
+	c_kalimantan_1_1.moveDown(97);
+	c_kalimantan_1_2.rotate(120);
+	c_kalimantan_1_2.scale(0.5);
+	c_kalimantan_1_2.moveRight(260);
+	c_kalimantan_1_2.moveDown(110);
+	c_kalimantan_1_3.rotate(120);
+	c_kalimantan_1_3.scale(0.3);
+	c_kalimantan_1_3.moveRight(255);
+	c_kalimantan_1_3.moveDown(123);
+	c_kalimantan_2_1.rotate(140);
+	c_kalimantan_2_1.scale(0.4);
+	c_kalimantan_2_1.moveRight(270);
+	c_kalimantan_2_1.moveDown(124);
+	c_kalimantan_2_2.rotate(140);
+	c_kalimantan_2_2.scale(0.25);
+	c_kalimantan_2_2.moveRight(267);
+	c_kalimantan_2_2.moveDown(145);
 }
