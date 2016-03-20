@@ -333,21 +333,7 @@ void drawMap() {
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 	FB.drawThreeDimension(peta);
-/*
-	FB.rasterScan(p_sumatra, r1, g1, b1, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
-	FB.rasterScan(p_jawa, r1, g1, b1, 0, p_jawa.getMinY(), p_jawa.getMaxY());
-	FB.rasterScan(p_kalimantan, r1, g1, b1, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
-	FB.rasterScan(p_sulawesi, r1, g1, b1, 0, p_sulawesi.getMinY(), p_sulawesi.getMaxY());
 
-	FB.rasterScan(p_papua, r1, g1, b1, 0, p_papua.getMinY(), p_papua.getMaxY());
-
-	FB.rasterScan(c_papua_2_1, r2, g2, b2,0, c_papua_2_1.getMinY(), c_papua_2_1.getMaxY());
-	FB.rasterScan(c_papua_2_2, r3, g3, b3,0, c_papua_2_2.getMinY(), c_papua_2_2.getMaxY());
-	FB.rasterScan(c_papua_3_1, r2, g2, b2,0, c_papua_3_1.getMinY(), c_papua_3_1.getMaxY());
-	FB.rasterScan(c_papua_3_2, r3, g3, b3,0, c_papua_3_2.getMinY(), c_papua_3_2.getMaxY());
-	FB.rasterScan(c_papua_3_3, r4, g4, b4,0, c_papua_3_3.getMinY(), c_papua_3_3.getMaxY());
-	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
-*/
 	FB.scanLine3D(polygons,colors);
 
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
@@ -360,10 +346,6 @@ void drawMap() {
 	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());
 	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
 	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
-
-	FB.rasterScan(c_kalimantan_1_1, r2, g2, b2,0, c_kalimantan_1_1.getMinY(), c_kalimantan_1_1.getMaxY());
-	FB.rasterScan(c_kalimantan_1_2, r3, g3, b3,0, c_kalimantan_1_2.getMinY(), c_kalimantan_1_2.getMaxY());
-	FB.rasterScan(c_kalimantan_1_3, r4, g4, b4,0, c_kalimantan_1_3.getMinY(), c_kalimantan_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
@@ -513,25 +495,12 @@ void initDraw() {
 	polygons.push_back(c_sumatra_5_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
-	//polygons.push_back(c_papua_1_2.finals);
-	//colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
-	//polygons.push_back(c_papua_1_1.finals);
-	//colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
-	
-	/*polygons.push_back(p_papua.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
-
-	polygons.push_back(p_jawa.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
-
-	polygons.push_back(p_kalimantan.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
-
-	polygons.push_back(p_sulawesi.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
-
-	polygons.push_back(p_sumatra.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));*/
+	polygons.push_back(c_kalimantan_1_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_kalimantan_1_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_kalimantan_1_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
 	for (int i=0; i<peta.size(); i++) {
 		polygons.push_back(peta[i].frontside.e);
