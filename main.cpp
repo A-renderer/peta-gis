@@ -686,8 +686,27 @@ void drawPin(int x, int y) {
 }
 
 void placePin() {
-	// ACEH
-	drawPin(27,70);
+	// SUMATERA
+	drawPin(27,70); // Aceh
+	drawPin(60,100); // Medan
+	drawPin(100,150); // Pekanbaru
+	drawPin(75,170); // Padang
+	drawPin(118,202); // Jambi
+	drawPin(137,285); // Lampung
+
+	// JAWA
+	drawPin(190,287); // Banten
+	drawPin(205,280); // Jakarta
+	drawPin(220,300); // Bandung
+	drawPin(274,305); // Semarang
+	drawPin(278,320); // Jogja
+	drawPin(340,312); // Surabaya
+
+	// KALIMANTAN
+	drawPin(260,130); // Kalimantan timur
+	drawPin(245,200); // Kalimantan selatan
+	drawPin(215,175); // Kalimantan tengah
+	drawPin(180,150); // Kalimantan barat
 }
 
 void placeProvinceName(string str, int x, int y) {
@@ -705,5 +724,4 @@ void placeProvinceName(string str, int x, int y) {
 	else if(str.compare("jawa")==0) {
 
 	}
-
 }
