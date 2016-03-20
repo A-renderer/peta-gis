@@ -24,6 +24,7 @@ void drawMap();
 void redraw();
 void move(int key);
 void initDraw();
+void launchScreen();
 void drawCredits();
 
 // ANTI CLIPPING
@@ -251,15 +252,14 @@ int main() {
 	kontur.push_back(c_kalimantan_1_3);
 
 	system("clear");
-
 	initDraw();
 	drawMap();
-	
+
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
 	redraw();
-
+	
 	while(!quit){
 		if(kbhit()){
 			key=getchar();
@@ -383,69 +383,69 @@ void redraw() { //untuk redraw view
 void move(int key) {
 	//system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
-	int i = 0;
-	if(key==65){
-		while(i < 10 && window.square.getMinY() > 0) {
-			window.moveUp(1);
-			i++;
+		int i = 0;
+		if(key==65){
+			while(i < 10 && window.square.getMinY() > 0) {
+				window.moveUp(1);
+				i++;
+			}
 		}
-	}
-	else if(key==68){
-		while(i < 10 && window.square.getMinX() > 0) {
-			window.moveLeft(1);
-			i++;
+		else if(key==68){
+			while(i < 10 && window.square.getMinX() > 0) {
+				window.moveLeft(1);
+				i++;
+			}
 		}
-	}
-	else if(key==67){
-		while(i < 10 && window.square.getMaxX() < 599) {
-			window.moveRight(1);
-			i++;
+		else if(key==67){
+			while(i < 10 && window.square.getMaxX() < 599) {
+				window.moveRight(1);
+				i++;
+			}
 		}
-	}
-	else if(key==66){
-		while(i < 10 && window.square.getMaxY() < 400) {
-			window.moveDown(1);
-			i++;
+		else if(key==66){
+			while(i < 10 && window.square.getMaxY() < 400) {
+				window.moveDown(1);
+				i++;
+			}
 		}
-	}
-	else if(key=='m') {
-		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.zoomOut(1.01);
-	}
-	else if(key=='k') {
-		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.zoomIn(1.01);
-	}
-	else if(key=='l') {
-		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.rotateCW(5.0);
-	}
-	else if(key=='j') {
-		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.rotateCW(-5.0);
-	}
-	else if(key=='c') { //creadits
-		FB.cleararea(0,0,599,400);
-		drawCredits();
-		quit=true;
-		system("clear");
-	}
-	else if(key=='q') {
-		// OTHER KEYS
-		quit=true;
-		system("clear");
-	}
+		else if(key=='m') {
+			if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.zoomOut(1.01);
+		}
+		else if(key=='k') {
+			if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.zoomIn(1.01);
+		}
+		else if(key=='l') {
+			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.rotateCW(5.0);
+		}
+		else if(key=='j') {
+			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.rotateCW(-5.0);
+		}
+		else if(key=='c') { //creadits
+			FB.cleararea(0,0,599,400);
+			drawCredits();
+			quit=true;
+			system("clear");
+		}
+		else if(key=='q') {
+			// OTHER KEYS
+			quit=true;
+			system("clear");
+		}
 
-	if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
-		//menggambar ulang peta
-		drawMap();
+		if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
+			//menggambar ulang peta
+			drawMap();
 
-		//menggambar ulang window & view
-		FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
-		FB.drawPolygon(view.pol,255,255,255,0);	
-		FB.drawWindow(window,255,255,255,0);
-		redraw();
-	}
+			//menggambar ulang window & view
+			FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+			FB.drawPolygon(view.pol,255,255,255,0);	
+			FB.drawWindow(window,255,255,255,0);
+			redraw();
+		}
 }
 
 void initDraw() {
@@ -553,6 +553,17 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 	else {
 		//gausah digambar
 	}	
+}
+
+void launchScreen() {
+	float size = 1.5;
+	int y_peta = 50;
+
+	FB.cleararea(0,0,1020,400);
+    
+	printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2, y_peta*2);
+	printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 25, y_peta);
+	printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 50, y_peta);
 }
 
 void drawCredits() {
