@@ -18,6 +18,8 @@ int kbhit(void);
 Polygon matrixToPolygon(int object[][2], int col);
 ThreeDimension matrixToVectorOfPoints(int object[][2], int col);
 Curve matrixToCurve(int object[][2], int col);
+void printLetter(int font[][2], int col, float size, int x, int y);
+void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y);
 void drawMap();
 void redraw();
 void move(int key);
@@ -83,11 +85,11 @@ int main() {
 	p_papua.moveRight(430);
 	p_papua.moveDown(160);
 
-	peta.push_back(p_sumatra);
+	peta.push_back(p_papua);
 	peta.push_back(p_jawa);
 	peta.push_back(p_kalimantan);
 	peta.push_back(p_sulawesi);
-	peta.push_back(p_papua);
+	peta.push_back(p_sumatra);
 
 	//Adjust positions of the contour
 	c_jawa_1_1.rotate(195);
@@ -445,6 +447,7 @@ void initDraw() {
 	int rgb2[] = {124,255,0,0};
 	int rgb3[] = {255,255,0,0};
 	int rgb4[] = {255,165,0,0};
+	int rgb5[] = {100,100,100,0};
 
 	polygons.push_back(c_papua_4_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
@@ -491,7 +494,7 @@ void initDraw() {
 	//polygons.push_back(c_papua_1_1.finals);
 	//colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 	
-	polygons.push_back(p_papua.frontside.e);
+	/*polygons.push_back(p_papua.frontside.e);
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
 	polygons.push_back(p_jawa.frontside.e);
@@ -504,5 +507,67 @@ void initDraw() {
 	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
 
 	polygons.push_back(p_sumatra.frontside.e);
-	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
+	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));*/
+
+	for (int i=0; i<peta.size(); i++) {
+		polygons.push_back(peta[i].frontside.e);
+		colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
+	}
+}
+
+void printLetter(int font[][2], int col, float size, int x, int y) {
+	if(y > 0 &&  y < 512-size*y) {
+		vector<Point> points;
+		points.clear();
+		for(int i=0;i<col-1;i++) {
+			points.push_back(Point(font[i][0]*size+size*x,font[i][1]*size+size*y));
+		}
+
+		Polygon Poly(points);
+		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
+		FB.drawPolygon(Poly.e,25,25,122,0);
+		FB.floodFill(Poly.firePoint.x, Poly.firePoint.y, 255, 182, 193, 100, 149, 237);
+	}
+	else {
+		//gausah digambar
+	}
+}
+
+void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y) {
+	if(y > 0 && y < 512-size*y) {
+		vector<Point> points;
+		vector<Point> points2;
+
+		points.clear();
+		for(int i=0;i<col1-1;i++) {
+			points.push_back(Point(font1[i][0]*size+size*x,font1[i][1]*size+size*y));
+		}
+		Polygon Poly1(points);
+		FB.drawPolygon(Poly1.e,25,25,122,0);
+	
+		points2.clear();
+		for(int i=0;i<col2-1;i++) {
+			points2.push_back(Point(font2[i][0]*size+size*x,font2[i][1]*size+size*y));
+		}
+		Polygon Poly2(points2);
+
+		FB.drawPolygon(Poly2.e,25,25,122,0);
+	
+		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
+	
+		FB.floodFill(Poly1.firePoint.x, Poly1.firePoint.y, 255, 182, 193, 100, 149, 237);
+	}
+	else {
+		//gausah digambar
+	}	
+}
+
+void drawNames() {
+	float size = 1.0;
+	
+	int y_vanya = 25;
+	int y_venny = 50;
+	int y_pipin = 75;
+	int y_azwar = 100;
+	int y_jessica = 125;	
 }
