@@ -194,6 +194,7 @@ void drawMap() {
 	placePin();
 	placeProvinceName("sumatra",20,150);
 	placeProvinceName("jawa",250,300);
+	placeProvinceName("papua",480,220);
 
 }
 
@@ -395,28 +396,26 @@ void printLetter(int font[][2], int col, float size, int x, int y) {
 }
 
 void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, float size, int x, int y) {
-		vector<Point> points;
-		vector<Point> points2;
+	vector<Point> points;
+	vector<Point> points2;
 
-		points.clear();
-		for(int i=0;i<col1-1;i++) {
-			points.push_back(Point((float)(font1[i][0]*size)+(float)size*x,(float)(font1[i][1]*size)+(float)size*y));
-		}
-		Polygon Poly1(points);
-		FB.drawPolygon(Poly1.e,25,25,122,0);
-		FB.rasterScan(Poly1, 10, 10, 10, 0, Poly1.getMinY(), Poly1.getMaxY());
+	points.clear();
+	for(int i=0;i<col1-1;i++) {
+		points.push_back(Point((float)(font1[i][0]*size)+(float)size*x,(float)(font1[i][1]*size)+(float)size*y));
+	}
+	Polygon Poly1(points);
+	FB.drawPolygon(Poly1.e,25,25,122,0);
+	FB.rasterScan(Poly1, 10, 10, 10, 0, Poly1.getMinY(), Poly1.getMaxY());
 
-		points2.clear();
-		for(int i=0;i<col2-1;i++) {
-			points2.push_back(Point((float)(font2[i][0]*size)+(float)size*x,(float)(font2[i][1]*size)+(float)size*y));
-		}
-		Polygon Poly2(points2);
+	points2.clear();
+	for(int i=0;i<col2-1;i++) {
+		points2.push_back(Point((float)(font2[i][0]*size)+(float)size*x,(float)(font2[i][1]*size)+(float)size*y));
+	}
+	Polygon Poly2(points2);
 
-		FB.drawPolygon(Poly2.e,25,25,122,0);
-		
-		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
+	FB.drawPolygon(Poly2.e,25,25,122,0);
 	
-		FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
+	FB.rasterScan(Poly2, 135, 206, 235, 0, Poly2.getMinY(), Poly2.getMaxY());
 }
 
 void launchScreen() {
@@ -733,5 +732,12 @@ void placeProvinceName(string str, int x, int y) {
 		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+15, y);
 		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, x+31,y);
 		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+55, y);
+	}
+	else if(str.compare("papua")==0) {
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_R_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, x*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+14, y);
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_R_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, (x+34)*2, y*2);
+		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+52)*2, y*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+65, y);
 	}
 }
