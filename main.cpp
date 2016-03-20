@@ -24,6 +24,7 @@ void drawMap();
 void redraw();
 void move(int key);
 void initDraw();
+void launchScreen();
 void drawCredits();
 
 // ANTI CLIPPING
@@ -46,6 +47,15 @@ Curve c_papua_3_1 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_2 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
+
+Polygon c_sulawesi_1_1 = matrixToPolygon(sulawesi_1_1,sizeof(sulawesi_1_1)/sizeof(*sulawesi_1_1));
+Polygon c_sulawesi_1_2 = matrixToPolygon(sulawesi_1_2,sizeof(sulawesi_1_2)/sizeof(*sulawesi_1_2));
+Polygon c_sulawesi_1_3 = matrixToPolygon(sulawesi_1_3,sizeof(sulawesi_1_3)/sizeof(*sulawesi_1_3));
+Polygon c_sulawesi_1_4 = matrixToPolygon(sulawesi_1_3,sizeof(sulawesi_1_3)/sizeof(*sulawesi_1_3));
+Curve c_sulawesi_2_1 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+Curve c_sulawesi_2_2 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+Curve c_sulawesi_2_3 = matrixToCurve(sulawesi_2,sizeof(sulawesi_2)/sizeof(*sulawesi_2));
+
 Curve c_sumatra_1_1 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 Curve c_sumatra_1_2 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
 Curve c_sumatra_1_3 = matrixToCurve(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
@@ -160,6 +170,29 @@ int main() {
 	c_papua_4_1.moveRight(491);
 	c_papua_4_1.moveDown(216);
 
+	c_sulawesi_1_1.scale(0.5);
+	c_sulawesi_1_1.moveRight(386);
+	c_sulawesi_1_1.moveDown(106);
+	c_sulawesi_1_2.scale(0.5);
+	c_sulawesi_1_2.moveRight(382);
+	c_sulawesi_1_2.moveDown(102);
+	c_sulawesi_1_3.scale(0.7);
+	c_sulawesi_1_3.moveRight(346);
+	c_sulawesi_1_3.moveDown(140);
+	c_sulawesi_1_4.scale(0.6);
+	c_sulawesi_1_4.moveRight(320);
+	c_sulawesi_1_4.moveDown(155);
+
+	c_sulawesi_2_1.scale(1.2);
+	c_sulawesi_2_1.moveRight(336);
+	c_sulawesi_2_1.moveDown(152);
+	c_sulawesi_2_2.scale(0.9);
+	c_sulawesi_2_2.moveRight(340);
+	c_sulawesi_2_2.moveDown(154);
+	c_sulawesi_2_3.scale(0.5);
+	c_sulawesi_2_3.moveRight(345);
+	c_sulawesi_2_3.moveDown(160);
+
 	c_sumatra_1_1.rotate(20);
 	c_sumatra_1_1.scale(0.6);
 	c_sumatra_1_1.moveRight(19);
@@ -263,15 +296,15 @@ int main() {
 	kontur.push_back(c_kalimantan_2_2);
 
 	system("clear");
-
 	initDraw();
 	drawMap();
-	
+
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
-	redraw();
 
+	redraw();
+	
 	while(!quit){
 		if(kbhit()){
 			key=getchar();
@@ -345,9 +378,16 @@ void drawMap() {
 	
 	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
 	FB.drawThreeDimension(peta);
-
 	FB.scanLine3D(polygons,colors);
-
+/*
+	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
+	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
+	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
+	FB.rasterScan(c_sulawesi_1_4,r2,g2,b2,0,c_sulawesi_1_4.getMinY(), c_sulawesi_1_4.getMaxY());
+	FB.rasterScan(c_sulawesi_2_1,r2,g2,b2,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
+	FB.rasterScan(c_sulawesi_2_2,r3,g3,b3,0,c_sulawesi_2_2.getMinY(), c_sulawesi_2_2.getMaxY());
+	FB.rasterScan(c_sulawesi_2_3,r4,g4,b4,0,c_sulawesi_2_3.getMinY(), c_sulawesi_2_3.getMaxY());
+*/
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
@@ -358,6 +398,9 @@ void drawMap() {
 	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());
 	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
 	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
+
+	FB.rasterScan(c_sulawesi_1_2,r2,g2,b2,0,c_sulawesi_1_2.getMinY(), c_sulawesi_1_2.getMaxY());
+	FB.rasterScan(c_sulawesi_1_3,r2,g2,b2,0,c_sulawesi_1_3.getMinY(), c_sulawesi_1_3.getMaxY());
 }
 
 void redraw() { //untuk redraw view
@@ -395,69 +438,69 @@ void redraw() { //untuk redraw view
 void move(int key) {
 	//system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
-	int i = 0;
-	if(key==65){
-		while(i < 10 && window.square.getMinY() > 0) {
-			window.moveUp(1);
-			i++;
+		int i = 0;
+		if(key==65){
+			while(i < 10 && window.square.getMinY() > 0) {
+				window.moveUp(1);
+				i++;
+			}
 		}
-	}
-	else if(key==68){
-		while(i < 10 && window.square.getMinX() > 0) {
-			window.moveLeft(1);
-			i++;
+		else if(key==68){
+			while(i < 10 && window.square.getMinX() > 0) {
+				window.moveLeft(1);
+				i++;
+			}
 		}
-	}
-	else if(key==67){
-		while(i < 10 && window.square.getMaxX() < 599) {
-			window.moveRight(1);
-			i++;
+		else if(key==67){
+			while(i < 10 && window.square.getMaxX() < 599) {
+				window.moveRight(1);
+				i++;
+			}
 		}
-	}
-	else if(key==66){
-		while(i < 10 && window.square.getMaxY() < 400) {
-			window.moveDown(1);
-			i++;
+		else if(key==66){
+			while(i < 10 && window.square.getMaxY() < 400) {
+				window.moveDown(1);
+				i++;
+			}
 		}
-	}
-	else if(key=='m') {
-		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.zoomOut(1.01);
-	}
-	else if(key=='k') {
-		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.zoomIn(1.01);
-	}
-	else if(key=='l') {
-		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.rotateCW(5.0);
-	}
-	else if(key=='j') {
-		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
-			window.rotateCW(-5.0);
-	}
-	else if(key=='c') { //creadits
-		FB.cleararea(0,0,599,400);
-		drawCredits();
-		quit=true;
-		system("clear");
-	}
-	else if(key=='q') {
-		// OTHER KEYS
-		quit=true;
-		system("clear");
-	}
+		else if(key=='m') {
+			if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.zoomOut(1.01);
+		}
+		else if(key=='k') {
+			if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.zoomIn(1.01);
+		}
+		else if(key=='l') {
+			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.rotateCW(5.0);
+		}
+		else if(key=='j') {
+			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+				window.rotateCW(-5.0);
+		}
+		else if(key=='c') { //creadits
+			FB.cleararea(0,0,599,400);
+			drawCredits();
+			quit=true;
+			system("clear");
+		}
+		else if(key=='q') {
+			// OTHER KEYS
+			quit=true;
+			system("clear");
+		}
 
-	if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
-		//menggambar ulang peta
-		drawMap();
+		if (key==65 || key==66 || key==67 || key==68 || key=='k' || key=='m' || key=='l' || key=='j'){
+			//menggambar ulang peta
+			drawMap();
 
-		//menggambar ulang window & view
-		FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
-		FB.drawPolygon(view.pol,255,255,255,0);	
-		FB.drawWindow(window,255,255,255,0);
-		redraw();
-	}
+			//menggambar ulang window & view
+			FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+			FB.drawPolygon(view.pol,255,255,255,0);	
+			FB.drawWindow(window,255,255,255,0);
+			redraw();
+		}
 }
 
 void initDraw() {
@@ -518,6 +561,19 @@ void initDraw() {
 	polygons.push_back(c_kalimantan_2_1.finals);
 	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
 
+	polygons.push_back(c_sulawesi_2_3.finals);
+	colors.push_back(vector<int>(rgb4, rgb4 + sizeof rgb4 / sizeof rgb4[0]));
+	polygons.push_back(c_sulawesi_2_2.finals);
+	colors.push_back(vector<int>(rgb3, rgb3 + sizeof rgb3 / sizeof rgb3[0]));
+	polygons.push_back(c_sulawesi_2_1.finals);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sulawesi_1_4.e);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(c_sulawesi_1_1.e);
+	colors.push_back(vector<int>(rgb2, rgb2 + sizeof rgb2 / sizeof rgb2[0]));
+	polygons.push_back(p_sulawesi.frontside.e);
+	colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
+
 	for (int i=0; i<peta.size(); i++) {
 		polygons.push_back(peta[i].frontside.e);
 		colors.push_back(vector<int>(rgb1, rgb1 + sizeof rgb1 / sizeof rgb1[0]));
@@ -569,6 +625,17 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 	else {
 		//gausah digambar
 	}	
+}
+
+void launchScreen() {
+	float size = 1.5;
+	int y_peta = 50;
+
+	FB.cleararea(0,0,1020,400);
+    
+	printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2, y_peta*2);
+	printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 25, y_peta);
+	printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 50, y_peta);
 }
 
 void drawCredits() {
