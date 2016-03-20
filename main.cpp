@@ -700,4 +700,10 @@ void placePin() {
 	drawPin(274,305); // Semarang
 	drawPin(278,320); // Jogja
 	drawPin(340,312); // Surabaya
+
+	// KALIMANTAN
+	drawPin(260,130); // Kalimantan timur
+	drawPin(245,200); // Kalimantan selatan
+	drawPin(215,175); // Kalimantan tengah
+	drawPin(180,150); // Kalimantan barat
 }
