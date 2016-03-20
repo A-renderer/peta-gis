@@ -41,8 +41,9 @@ Curve c_papua_3_1 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_2 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_3_3 = matrixToCurve(papua_3,sizeof(papua_3)/sizeof(*papua_3));
 Curve c_papua_4_1 = matrixToCurve(papua_4,sizeof(papua_4)/sizeof(*papua_4));
-Curve c_sulawesi_1_1 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
-Curve c_sulawesi_1_2 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
+Polygon c_sulawesi_1_1 = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
+Curve c_sulawesi_2_1 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
+Curve c_sulawesi_2_2 = matrixToCurve(sulawesi_1,sizeof(sulawesi_1)/sizeof(*sulawesi_1));
 
 int main() {
 	// Adjust positions of the islands
@@ -103,13 +104,17 @@ int main() {
 	c_papua_4_1.moveRight(491);
 	c_papua_4_1.moveDown(216);
 
-	c_sulawesi_1_1.scale(1.1);
-	c_sulawesi_1_1.moveRight(336);
-	c_sulawesi_1_1.moveDown(152);
+	c_sulawesi_1_1.scale(0.8);
+	c_sulawesi_1_1.moveRight(330);
+	c_sulawesi_1_1.moveDown(120);
 
-	c_sulawesi_1_2.scale(0.8);
-	c_sulawesi_1_2.moveRight(340);
-	c_sulawesi_1_2.moveDown(154);
+	c_sulawesi_2_1.scale(1.1);
+	c_sulawesi_2_1.moveRight(336);
+	c_sulawesi_2_1.moveDown(152);
+
+	c_sulawesi_2_2.scale(0.9);
+	c_sulawesi_2_2.moveRight(340);
+	c_sulawesi_2_2.moveDown(154);
 
 	kontur.push_back(c_papua_1_1);
 	kontur.push_back(c_papua_1_2);
@@ -211,15 +216,10 @@ void drawMap() {
 	FB.rasterScan(c_papua_4_1, r2, g2, b2,0, c_papua_4_1.getMinY(), c_papua_4_1.getMaxY());
 
 	FB.scanLine3D(polygons,colors);
-<<<<<<< HEAD
-	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
-	FB.rasterScan(c_sulawesi_1_2,r3,g3,b3,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
-=======
 
-	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
-	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
-	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
->>>>>>> b977b1473aa92769e57830c519a6308232719e6f
+	FB.rasterScan(c_sulawesi_1_1,r2,g2,b2,0,c_sulawesi_1_1.getMinY(), c_sulawesi_1_1.getMaxY());
+	FB.rasterScan(c_sulawesi_2_1,r3,g3,b3,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
+	FB.rasterScan(c_sulawesi_2_2,r4,g4,b4,0,c_sulawesi_2_1.getMinY(), c_sulawesi_2_1.getMaxY());
 }
 
 void redraw() { //untuk redraw view
