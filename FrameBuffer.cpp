@@ -265,17 +265,13 @@ public:
 			for (int i=0; i<n; i++) {
 				if (i==n-1) {
 					if (pol.e[i].y <= y && pol.e[0].y > y || pol.e[0].y <= y && pol.e[i].y > y) {
-						//if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
 							line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
 							k++;
-						//}
 					}
 				} else {
 					if (pol.e[i].y <= y && pol.e[i+1].y > y || pol.e[i+1].y <= y && pol.e[i].y > y) {
-						//if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
 							line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
 							k++;
-						//}
 					}
 				}
 			}
@@ -387,17 +383,13 @@ public:
 			for (int i=0; i<n; i++) {
 				if (i==n-1) {
 					if (c.finals[i].y <= y && c.finals[0].y > y || c.finals[0].y <= y && c.finals[i].y > y) {
-						//if (!(c.finals[i-1].y < c.finals[i].y && c.finals[i+1].y < c.finals[i].y) || !(c.finals[i-1].y > c.finals[i].y && c.finals[i+1].y > c.finals[i].y)){
 							line[k] = (int) (c.finals[i].x + slope[i] * (y - c.finals[i].y));
 							k++;
-						//}
 					}
 				} else {
 					if (c.finals[i].y <= y && c.finals[i+1].y > y || c.finals[i+1].y <= y && c.finals[i].y > y) {
-						//if (!(c.finals[i-1].y < c.finals[i].y && c.finals[i+1].y < c.finals[i].y) || !(c.finals[i-1].y > c.finals[i].y && c.finals[i+1].y > c.finals[i].y)){
 							line[k] = (int) (c.finals[i].x + slope[i] * (y - c.finals[i].y));
 							k++;
-						//}
 					}
 				}
 			}
@@ -472,10 +464,6 @@ public:
 				int b = getB(x, y);
 				int a = getA(x, y);
 
-				//putPixel(Point(tempX, tempY), r,g,b,a);
-				//for (int i=1; i<=2) {
-
-				//}
 				if (getR(x,y)==0 && getG(x,y)==0 && getB(x,y)==0) {
 					for (int i=1; i<=1; i++) {
 						putPixel(Point(tempX, tempY), 135,206,235,0);
@@ -509,13 +497,9 @@ public:
 
 	void drawThreeDimension(vector<ThreeDimension> td) {
 		for (int i=0; i<td.size(); i++) {
-		//rasterScan(td[i].backside, 100, 100, 100, 0, td[i].backside.getMinY(), td[i].backside.getMaxY());
 			for(int j=0; j<td[i].p.size(); j++) {
 				rasterScan(td[i].p[j], 100, 100, 100, 0, td[i].p[j].getMinY(), td[i].p[j].getMaxY());
 			}
-			//for(int j=0; j<td[i].lines.size(); j++) {
-			//	drawLine(td[i].lines[j].src, td[i].lines[j].dest, 10, 10, 95, 0);
-			//}
 		}
 	}
 

@@ -86,8 +86,6 @@ Curve c_kalimantan_1_3 = matrixToCurve(kalimantan_1,sizeof(kalimantan_1)/sizeof(
 Curve c_kalimantan_2_1 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 Curve c_kalimantan_2_2 = matrixToCurve(kalimantan_2,sizeof(kalimantan_2)/sizeof(*kalimantan_2));
 
-//Polygon p_sumatra_1_1 = matrixToPolygon(sumatra_1,sizeof(sumatra_1)/sizeof(*sumatra_1));
-
 int main() {
 	// Adjust positions of the islands
 	initMap();
@@ -113,9 +111,6 @@ int main() {
 			move(key);
 		}
 	}
-
-	//system("clear");
-
 	return 0;
 }
 
@@ -232,8 +227,6 @@ void redraw() { //untuk redraw view
 }
 
 void move(int key) {
-	//system("clear");
-	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
 		int i = 0;
 		if(key==65){
 			while(i < 10 && window.square.getMinY() > 0) {
@@ -268,11 +261,9 @@ void move(int key) {
 				window.zoomIn(1.01);
 		}
 		else if(key=='l') {
-			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
 				window.rotateCW(5.0);
 		}
 		else if(key=='j') {
-			//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
 				window.rotateCW(-5.0);
 		}
 		else if(key=='c') { //creadits
