@@ -193,6 +193,7 @@ void drawMap() {
 
 	placePin();
 	placeProvinceName("sumatra",20,150);
+	placeProvinceName("sulawesi",315,120);
 
 }
 
@@ -739,5 +740,16 @@ void placeProvinceName(string str, int x, int y) {
 	}
 	else if(str.compare("jawa")==0) {
 
+	}
+
+	else if(str.compare("sulawesi")==0) {
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, x*2, y*2);
+		printLetter(font_U, sizeof(font_U)/sizeof(*font_U), size/2, (x+18)*2, y*2);
+		printLetter(font_L, sizeof(font_L)/sizeof(*font_L), size, x+33,y);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, x+51, y);
+		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, x+66,y);
+		printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, x+94, y);
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, (x+109)*2, y*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, x+129,y);
 	}
 }
