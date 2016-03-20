@@ -193,9 +193,9 @@ void drawMap() {
 
 	placePin();
 	placeProvinceName("sumatra",20,150);
-	placeProvinceName("sulawesi",315,120);
+	placeProvinceName("sulawesi",315,123);
 	placeProvinceName("jawa",250,300);
-	placeProvinceName("papua",480,220);
+	placeProvinceName("papua",497,180);
 	placeProvinceName("kalimantan", 140, 60);
 }
 
