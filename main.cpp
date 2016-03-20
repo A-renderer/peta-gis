@@ -184,15 +184,7 @@ void drawMap() {
 	FB.rasterScan(c_papua_1_1, r2, g2, b2,0, c_papua_1_1.getMinY(), c_papua_1_1.getMaxY());
 	FB.rasterScan(c_papua_1_2, r3, g3, b3,0, c_papua_1_2.getMinY(), c_papua_1_2.getMaxY());
 	FB.rasterScan(c_papua_1_3, r4, g4, b4,0, c_papua_1_3.getMinY(), c_papua_1_3.getMaxY());
-<<<<<<< HEAD
 	
-	FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
-=======
-	/*FB.rasterScan(c_jawa_1_1, r2, g2, b2,0, c_jawa_1_1.getMinY(), c_jawa_1_1.getMaxY());
->>>>>>> benerin kontur sama nambahin huruf
-	FB.rasterScan(c_jawa_1_2, r3, g3, b3,0, c_jawa_1_2.getMinY(), c_jawa_1_2.getMaxY());
-	FB.rasterScan(c_jawa_1_3, r4, g4, b4,0, c_jawa_1_3.getMinY(), c_jawa_1_3.getMaxY());
-	FB.rasterScan(c_jawa_2_1, r2, g2, b2,0, c_jawa_2_1.getMinY(), c_jawa_2_1.getMaxY());*/
 	FB.rasterScan(c_jawa_2_2, r3, g3, b3,0, c_jawa_2_2.getMinY(), c_jawa_2_2.getMaxY());
 	FB.rasterScan(c_jawa_2_3, r4, g4, b4,0, c_jawa_2_3.getMinY(), c_jawa_2_3.getMaxY());
 
