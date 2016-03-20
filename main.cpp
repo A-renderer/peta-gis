@@ -24,6 +24,7 @@ void drawMap();
 void redraw();
 void move(int key);
 void initDraw();
+void drawCredits();
 
 // ANTI CLIPPING
 vector < vector <Point> > polygons;
@@ -424,6 +425,12 @@ void move(int key) {
 		//if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
 			window.rotateCW(-5.0);
 	}
+	else if(key=='c') { //creadits
+		FB.cleararea(0,0,599,400);
+		drawCredits();
+		quit=true;
+		system("clear");
+	}
 	else if(key=='q') {
 		// OTHER KEYS
 		quit=true;
@@ -526,7 +533,7 @@ void printLetter(int font[][2], int col, float size, int x, int y) {
 		Polygon Poly(points);
 		Poly.firePoint = Point(font[col-1][0]*size+size*x,font[col-1][1]*size+size*y);
 		FB.drawPolygon(Poly.e,25,25,122,0);
-		FB.floodFill(Poly.firePoint.x, Poly.firePoint.y, 255, 182, 193, 100, 149, 237);
+		FB.floodFill(Poly.firePoint.x, Poly.firePoint.y, 135, 206, 235, 255, 182, 193);
 	}
 	else {
 		//gausah digambar
@@ -555,19 +562,57 @@ void printLetterCounter(int font1[][2], int col1, int font2[][2], int col2, floa
 	
 		Poly1.firePoint = Point(font1[col1-1][0]*size+size*x,font1[col1-1][1]*size+size*y);
 	
-		FB.floodFill(Poly1.firePoint.x, Poly1.firePoint.y, 255, 182, 193, 100, 149, 237);
+		FB.floodFill(Poly1.firePoint.x, Poly1.firePoint.y, 135, 206, 235, 255, 182, 193);
 	}
 	else {
 		//gausah digambar
 	}	
 }
 
-void drawNames() {
-	float size = 1.0;
+void drawCredits() {
+	float size = 1.5;
 	
 	int y_vanya = 25;
 	int y_venny = 50;
 	int y_pipin = 75;
 	int y_azwar = 100;
 	int y_jessica = 125;	
+
+	while(y_jessica > 0) {
+		printLetter(font_V, sizeof(font_V)/sizeof(*font_V), size, 5, y_vanya);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 20, y_vanya);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 40, y_vanya);
+		printLetter(font_Y, sizeof(font_Y)/sizeof(*font_Y), size, 58, y_vanya);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 72, y_vanya);
+
+		printLetter(font_V, sizeof(font_V)/sizeof(*font_V), size, 5, y_venny);
+		printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 25, y_venny);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 40, y_venny);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 60, y_venny);
+		printLetter(font_Y, sizeof(font_Y)/sizeof(*font_Y), size, 78, y_venny);
+
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 5*2, y_pipin*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 22, y_pipin);
+		printLetterCounter(font_P_out, sizeof(font_P_out)/sizeof(*font_P_out), font_P_in, sizeof(font_P_in)/sizeof(*font_P_in), size/2, 30*2, y_pipin*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 47, y_pipin);
+		printLetter(font_N, sizeof(font_N)/sizeof(*font_N), size, 52, y_pipin);
+
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 5, y_azwar);
+		printLetter(font_Z, sizeof(font_Z)/sizeof(*font_Z), size, 25, y_azwar);
+		printLetter(font_W, sizeof(font_W)/sizeof(*font_W), size, 39, y_azwar);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 62, y_azwar);
+		printLetterCounter(font_R_out, sizeof(font_R_out)/sizeof(*font_R_out), font_R_in, sizeof(font_R_in)/sizeof(*font_R_in), size/2,  82*2, y_azwar*2);
+
+		printLetter(font_J, sizeof(font_J)/sizeof(*font_J), size/2, 5*2, y_jessica*2);
+		printLetter(font_E, sizeof(font_E)/sizeof(*font_E), size, 20, y_jessica);
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, 35*2, y_jessica*2);
+		printLetter(font_S, sizeof(font_S)/sizeof(*font_S), size/2, 52*2, y_jessica*2);
+		printLetter(font_I, sizeof(font_I)/sizeof(*font_I), size, 70, y_jessica);
+		printLetter(font_C, sizeof(font_C)/sizeof(*font_C), size/2, 78*2, y_jessica*2);
+		printLetterCounter(font_A_out, sizeof(font_A_out)/sizeof(*font_A_out), font_A_in, sizeof(font_A_in)/sizeof(*font_A_in), size, 98, y_jessica);
+
+		y_vanya-=2; y_venny-=2; y_pipin-=2; y_azwar-=2; y_jessica-=2;
+        usleep(10000);
+        FB.cleararea(0,0,300,400);
+	}
 }
