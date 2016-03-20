@@ -715,7 +715,17 @@ void placePin() {
 	drawPin(245,200); // Kalimantan selatan
 	drawPin(215,175); // Kalimantan tengah
 	drawPin(180,150); // Kalimantan barat
-}
+
+	//SULAWESI
+	drawPin(342,150); // Sulawesi Tengah
+	drawPin(333,180); // Sulawesi Barat
+	drawPin(340,220); // Sulawesi Selatan
+	drawPin(389,200); // Sulawesi Tenggara
+	drawPin(390,155); // Sulawesi Timur
+	drawPin(400,120); // Sulawesi Gorontalo
+	drawPin(430,104); // Sulawesi Utara
+	
+	}
 
 void placeProvinceName(string str, int x, int y) {
 	int size = 1;
